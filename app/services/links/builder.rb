@@ -12,7 +12,7 @@ module Links
 
     def build(attrs)
       link = Link.new(attrs)
-      link.slug = generate_slug unless link.slug
+      link.slug ||= generate_slug
       link
     end
 
