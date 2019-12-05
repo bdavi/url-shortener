@@ -39,7 +39,7 @@ RSpec.describe Link, type: :model do
     expect(link).to be_valid
   end
 
-  describe '#slug_is_available?' do
+  describe '.slug_is_available?' do
     context 'when a link has that slug' do
       it 'returns false' do
         slug = 'abc'
