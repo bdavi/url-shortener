@@ -56,4 +56,13 @@ RSpec.describe Link, type: :model do
       end
     end
   end
+
+  describe '#short_url' do
+    it 'concatenates the host and slug' do
+      ENV['DEFAULT_SHORT_LINK_HOST'] = 'http://www.test.com'
+      link = build(:link, slug: 'abc')
+
+      expect(link.short_url).to eq 'http://www.test.com/abc'
+    end
+  end
 end

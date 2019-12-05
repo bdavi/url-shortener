@@ -6,9 +6,11 @@ class Link < ApplicationRecord
 
   validates :slug, presence: true, uniqueness: true
 
-  class << self
-    def slug_is_available?(slug)
-      find_by(slug: slug).nil?
-    end
+  def short_url
+    "#{ENV['DEFAULT_SHORT_LINK_HOST']}/#{slug}"
+  end
+
+  def self.slug_is_available?(slug)
+    find_by(slug: slug).nil?
   end
 end
