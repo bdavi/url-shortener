@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Core abstraction modeling a shortened link
+# Models a shortened link
 class Link < ApplicationRecord
   validates :url, presence: true, url: true
 

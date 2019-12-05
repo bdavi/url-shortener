@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Module for code relalated to Link
+# Link related code
 module Links
   # Finds availalbe random slugs
   # In theory we could have a collision with an existing slug when
