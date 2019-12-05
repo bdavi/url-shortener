@@ -2,7 +2,7 @@
 
 # Link related code
 module Links
-  # Finds availalbe random slugs
+  # Finds available random slugs
   # In theory we could have a collision with an existing slug when
   # generating a new random slug. Retry until we hit the limit or
   # find one that is not in use.
