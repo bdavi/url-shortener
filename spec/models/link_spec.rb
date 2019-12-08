@@ -44,7 +44,6 @@ RSpec.describe Link, type: :model do
       it 'returns false' do
         slug = 'abc'
         create(:link, slug: slug)
-
         expect(described_class.slug_is_available?(slug)).to be false
       end
     end
@@ -58,11 +57,17 @@ RSpec.describe Link, type: :model do
   end
 
   describe '#short_url' do
-    it 'concatenates the host and slug' do
+    it 'joins the host and slug with a forward slash' do
       ENV['DEFAULT_SHORT_LINK_HOST'] = 'http://www.test.com'
       link = build(:link, slug: 'abc')
-
       expect(link.short_url).to eq 'http://www.test.com/abc'
+    end
+  end
+
+  describe '#relative_short_url' do
+    it 'concatenates a forward slash and the slug' do
+      link = build(:link, slug: 'abc')
+      expect(link.relative_short_url).to eq '/abc'
     end
   end
 end

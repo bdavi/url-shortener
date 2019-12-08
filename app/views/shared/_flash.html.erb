@@ -1,0 +1,10 @@
+<% flash.each do |flash_type, message| %>
+  <% if flash_is_displayable?(flash_type) %>
+    <%=
+      render(
+        partial: 'shared/alert',
+        locals: { type: alert_type(flash_type), message: message }
+      )
+    %>
+  <% end %>
+<% end %>

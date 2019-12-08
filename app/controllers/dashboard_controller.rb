@@ -12,7 +12,7 @@ class DashboardController < ApplicationController
     if @link.save
       redirect_to root_path, notice: 'Link was successfully created.'
     else
-      redirect_to root_path, notice: 'There was an error creating the link'
+      redirect_to root_path, alert: 'There was an error creating the link'
     end
   end
 

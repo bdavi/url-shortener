@@ -10,6 +10,10 @@ class Link < ApplicationRecord
     "#{ENV['DEFAULT_SHORT_LINK_HOST']}/#{slug}"
   end
 
+  def relative_short_url
+    "/#{slug}"
+  end
+
   def self.slug_is_available?(slug)
     find_by(slug: slug).nil?
   end
