@@ -15,6 +15,11 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
+    - name: Set up Ruby 2.6
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.6.3
+
     - name: Install PostgreSQL 11 client
       run: |
         sudo apt-get -yqq install libpq-dev
@@ -36,5 +41,3 @@ jobs:
         RAILS_ENV: test
       run: |
         bundle exec rspec
-    container:
-      image: ruby:2.6.5
