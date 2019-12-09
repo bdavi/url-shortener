@@ -1,7 +1,7 @@
 import { addStylesToElement } from '../../../app/javascript/src/helpers.js'
 
 describe('addStylesToElement', () => {
-  it('adds the styles to element.style object', () => {
+  it('adds the properties in styles to the element.style object', () => {
     const styles = { display: 'none' };
     const element = {
       style: {
