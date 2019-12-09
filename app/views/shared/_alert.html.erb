@@ -1,3 +1,6 @@
+<%# Expects type and message in the locals %>
+<%# Value of type should be 'error', 'info' or 'warning'. %>
+
 <div data-controller="alert" data-target="alert.dismiss" class="alert alert-<%= type %>">
   <div>
     <span class="alert-icon">
