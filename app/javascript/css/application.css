@@ -1,8 +1,11 @@
-/* Vendor Styles */
 @import "tailwindcss/base";
+
+/* Load application styles after base to prevent specificity issues */
+@import "./typography.css";
+@import "./form.css";
+@import "./animation.css";
+@import "./alert.css";
+
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* Application Styles */
-@import "./animation.css";
-@import "./alert.css";
