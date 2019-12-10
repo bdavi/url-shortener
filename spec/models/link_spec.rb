@@ -70,4 +70,19 @@ RSpec.describe Link, type: :model do
       expect(link.relative_short_url).to eq '/abc'
     end
   end
+
+  describe '.slug_is_active?' do
+    context 'when the slug has a link' do
+      it 'returns true' do
+        link = create(:link)
+        expect(described_class.slug_is_active?(link.slug)).to be true
+      end
+    end
+
+    context 'when the slug does not have a link' do
+      it 'returns false' do
+        expect(described_class.slug_is_active?('not-a-slug')).to be false
+      end
+    end
+  end
 end

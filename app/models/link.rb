@@ -15,6 +15,10 @@ class Link < ApplicationRecord
   end
 
   def self.slug_is_available?(slug)
-    find_by(slug: slug).nil?
+    !exists?(slug: slug)
+  end
+
+  def self.slug_is_active?(slug)
+    exists?(slug: slug)
   end
 end

@@ -1,4 +1,4 @@
-<%= form_with(model: @dashboard.new_link, url: 'create_link', data: { remote: false }) do |form| %>
+<%= form_with(model: @dashboard.new_link, url: links_path, data: { remote: false }) do |form| %>
   <div>
     <%= form.label :url %>
     <%= form.text_field :url %>
