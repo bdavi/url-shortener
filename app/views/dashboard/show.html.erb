@@ -22,13 +22,14 @@
 <hr>
 
 <div class="my-6">
+  <h3 class="mb-2">Recent Links</h3>
   <ul>
     <% if @dashboard.recent_links.any? %>
       <% @dashboard.recent_links.each do |link| %>
         <li>
           <strong>Link ID: <%= link.id %></strong><br>
-          <strong>Long:</strong> <%= link_to link.url, link.url, target: '_blank' %><br>
-          <strong>Short:</strong> <%= link_to link.short_url, link.relative_short_url, target: '_blank' %>
+          <strong>Long URL:</strong> <%= link_to link.url, link.url, target: '_blank' %><br>
+          <strong>Short URL:</strong> <%= link_to link.short_url, link.relative_short_url, target: '_blank' %>
         <br>&nbsp;
         </li>
       <% end %>
