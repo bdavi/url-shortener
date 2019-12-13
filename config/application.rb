@@ -36,5 +36,7 @@ module UrlShortener
       #{config.root}/app/constraints
       #{config.root}/app/presenters
     ]
+
+    config.action_view.form_with_generates_remote_forms = false
   end
 end
