@@ -1,0 +1,46 @@
+<% page_title('Dashboard | URL Shortener') %>
+
+<div class="mb-6">
+  <h1>URLs are <span class="italic">TOO DAMN LONG!!!</span></h1>
+</div>
+
+<hr>
+
+<div class="my-6">
+  <%= form_with(model: @dashboard.new_link, url: links_path) do |form| %>
+    <div class="mb-3">
+      <%= form.label :url, 'Enter a URL to shorten:', class: 'form-label' %>
+      <%= form.text_field :url, class: 'form-input', placeholder: 'URL to shorten' %>
+    </div>
+
+    <div>
+      <%= form.submit class: 'btn btn-blue' %>
+    </div>
+  <% end %>
+</div>
+
+<hr>
+
+<div class="my-6">
+  <h3 class="mb-2">Recent Links</h3>
+  <ul>
+    <% if @dashboard.recent_links.any? %>
+      <% @dashboard.recent_links.each do |link| %>
+        <li class="mb-4">
+          <strong>Link ID:</strong> 
+          <%= link.id %>
+          <br>
+
+          <strong>Long URL:</strong> 
+          <%= link_to link.url, link.url, target: '_blank' %>
+          <br>
+
+          <strong>Short URL:</strong> 
+          <%= link_to link.short_url, link.relative_short_url, target: '_blank' %>
+        </li>
+      <% end %>
+    <% else %>
+      <li>No links to dispaly</li>
+    <% end %>
+  </ul>
+</div>

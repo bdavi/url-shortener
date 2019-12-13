@@ -15,6 +15,8 @@ RSpec.describe Link, type: :model do
 
   it { is_expected.to validate_presence_of :slug }
 
+  it { is_expected.to validate_url_format_of :url }
+
   it 'validates uniqueness of #slug' do
     link = create(:link)
     duplicate = build(:link, slug: link.slug)
@@ -23,28 +25,11 @@ RSpec.describe Link, type: :model do
     expect(duplicate.errors[:slug]).to include 'has already been taken'
   end
 
-  it 'validates #url is a valid url' do
-    link = build(:link, url: 'invalid-url')
-    link.valid?
-    expect(link.errors[:url]).to include 'is an invalid URL'
-  end
-
-  it 'validates http urls' do
-    link = build(:link, url: 'http://www.google.com/test?some=stuff')
-    expect(link).to be_valid
-  end
-
-  it 'validates https urls' do
-    link = build(:link, url: 'https://www.google.com/test?some=stuff')
-    expect(link).to be_valid
-  end
-
   describe '.slug_is_available?' do
     context 'when a link has that slug' do
       it 'returns false' do
         slug = 'abc'
         create(:link, slug: slug)
-
         expect(described_class.slug_is_available?(slug)).to be false
       end
     end
@@ -58,11 +43,38 @@ RSpec.describe Link, type: :model do
   end
 
   describe '#short_url' do
-    it 'concatenates the host and slug' do
+    it 'joins the host and slug with a forward slash' do
       ENV['DEFAULT_SHORT_LINK_HOST'] = 'http://www.test.com'
       link = build(:link, slug: 'abc')
-
       expect(link.short_url).to eq 'http://www.test.com/abc'
     end
+  end
+
+  describe '#relative_short_url' do
+    it 'concatenates a forward slash and the slug' do
+      link = build(:link, slug: 'abc')
+      expect(link.relative_short_url).to eq '/abc'
+    end
+  end
+
+  describe '.slug_is_active?' do
+    context 'when the slug has a link' do
+      it 'returns true' do
+        link = create(:link)
+        expect(described_class.slug_is_active?(link.slug)).to be true
+      end
+    end
+
+    context 'when the slug does not have a link' do
+      it 'returns false' do
+        expect(described_class.slug_is_active?('not-a-slug')).to be false
+      end
+    end
+  end
+
+  describe '.scopes' do
+    subject { described_class }
+
+    it { is_expected.to delegate_scope(:most_recent).to(Links::MostRecentQuery) }
   end
 end
