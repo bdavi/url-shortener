@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for?(:title) ? yield(:title) : default_title %></title>
+    <title><%= content_for?(:title) ? yield(:title) : 'URL Shortener' %></title>
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
