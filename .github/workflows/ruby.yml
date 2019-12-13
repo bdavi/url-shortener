@@ -20,6 +20,11 @@ jobs:
       with:
         ruby-version: 2.6.3
 
+    - name: Set up Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: 13.2.0
+
     - name: Install PostgreSQL 11 client
       run: |
         sudo apt-get -yqq install libpq-dev
@@ -32,6 +37,7 @@ jobs:
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 3
+        yarn install
         bin/rails db:setup
 
     - name: Run Tests
