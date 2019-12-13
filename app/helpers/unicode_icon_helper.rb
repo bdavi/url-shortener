@@ -18,7 +18,7 @@ module UnicodeIconHelper
     end
   end
 
-  # rubocop:disable HashAlignment
+  # rubocop:disable Layout/HashAlignment
   UNICODE_ICONS = {
     close:            UnicodeIcon.new(decimal_code: '215',    char: '×'),
     warning_triangle: UnicodeIcon.new(decimal_code: '9888',   char: '⚠'),
@@ -26,7 +26,7 @@ module UnicodeIconHelper
     exclamation:      UnicodeIcon.new(decimal_code: '33',     char: '!'),
     check:            UnicodeIcon.new(decimal_code: '10003',  char: '✓')
   }.freeze
-  # rubocop:enable HashAlignment
+  # rubocop:enable Layout/HashAlignment
 
   def unicode_icon(name)
     UNICODE_ICONS[name.to_sym].to_html

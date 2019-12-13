@@ -31,9 +31,15 @@ RSpec/MessageSpies:
 RSpec/ExampleLength:
   Max: 10
 
+Style/Documentation:
+  Exclude:
+    - 'db/**'
+    - 'db/**/*'
+
 AllCops:
   Exclude:
     - 'node_modules/**'
     - 'node_modules/**/*'
     - 'spec/rails_helper.rb'
     - 'spec/spec_helper.rb'
+    - 'Guardfile'
