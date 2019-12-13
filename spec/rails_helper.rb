@@ -11,6 +11,7 @@ require 'capybara/rails'
 if Rails.env.production?
   abort('The Rails environment is running in production mode!')
 end
+
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
