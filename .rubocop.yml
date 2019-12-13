@@ -4,3 +4,8 @@ require:
   - rubocop-rake
   - rubocop-rspec
   - rubocop-thread_safety
+
+AllCops:
+  Exclude:
+    - 'node_modules/**'
+    - 'node_modules/**/*'

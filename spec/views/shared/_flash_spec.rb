@@ -16,7 +16,7 @@ describe 'rendering the flash' do
     expect(rendered).to     match(/flash-alert/)
     expect(rendered).to     match(/You should/)
     expect(rendered).to     match(/and this/)
-    expect(rendered).to_not match(/should_not_be_rendered/)
-    expect(rendered).to_not match(/do_not_display/)
+    expect(rendered).not_to match(/should_not_be_rendered/)
+    expect(rendered).not_to match(/do_not_display/)
   end
 end

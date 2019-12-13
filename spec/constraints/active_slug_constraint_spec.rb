@@ -4,11 +4,11 @@ require 'rails_helper'
 
 RSpec.describe ActiveSlugConstraint, type: :helper do
   describe '#matches?' do
+    subject { described_class.new }
+
     let(:slug) { 'abc' }
     let(:params) { { slug: slug } }
     let(:request) { double(params: params) }
-
-    subject { described_class.new }
 
     context 'when the slug is active' do
       it 'return true' do

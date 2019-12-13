@@ -34,7 +34,7 @@ RSpec.describe 'Links', type: :request do
       it 'creates the link and redirects to dashboard#show' do
         expect do
           post links_path, params: create_params('http://www.abc.com')
-        end.to change { Link.count }.by(1)
+        end.to change(Link, :count).by(1)
 
         expect(response).to redirect_to(root_url)
       end
@@ -44,7 +44,7 @@ RSpec.describe 'Links', type: :request do
       it 'does not create a link and redirects to dashboard#show' do
         expect do
           post links_path, params: create_params('invalid-url')
-        end.to_not(change { Link.count })
+        end.not_to(change(Link, :count))
 
         expect(response).to redirect_to(root_url)
       end
