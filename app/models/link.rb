@@ -6,6 +6,8 @@ class Link < ApplicationRecord
 
   validates :slug, presence: true, uniqueness: true
 
+  scope :most_recent, Links::MostRecentQuery
+
   def short_url
     "#{ENV['DEFAULT_SHORT_LINK_HOST']}/#{slug}"
   end

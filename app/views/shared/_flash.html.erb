@@ -1,9 +1,9 @@
-<% flash.each do |flash_type, message| %>
-  <% if flash_is_displayable?(flash_type) %>
+<% flash.to_h.slice(*displayable_flash_types).each do |type, messages| %>
+  <% Array(messages).each do |message| %>
     <%=
       render(
-        partial: 'shared/alert',
-        locals: { type: alert_type(flash_type), message: message }
+        partial: 'shared/flash_message',
+        locals: { type: type, message: message }
       )
     %>
   <% end %>

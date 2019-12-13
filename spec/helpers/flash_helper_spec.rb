@@ -3,23 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe FlashHelper, type: :helper do
-  describe '#flash_is_displayable?' do
-    context 'when the type is displayable' do
-      it 'returns true' do
-        expect(flash_is_displayable?('alert')).to be true
-      end
-    end
-
-    context 'when the type is not displayable' do
-      it 'returns false' do
-        expect(flash_is_displayable?('random_data')).to be false
-      end
-    end
-
-    describe '#alert_type' do
-      it 'maps the flash type onto one of the alert types for display' do
-        expect(alert_type('notice')).to eq 'info'
-      end
+  describe '#flash_icon' do
+    it 'calls unicode_icon with the correct value' do
+      expect(helper).to receive(:unicode_icon).with('warning_triangle')
+      helper.flash_icon('error')
     end
   end
 end

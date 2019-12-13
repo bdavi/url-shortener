@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe DashboardController, type: :controller do
+RSpec.describe 'Dashboard', type: :request do
   describe 'GET #show' do
     it 'returns http success' do
-      get :show
+      get root_url
       expect(response).to have_http_status(:success)
     end
   end

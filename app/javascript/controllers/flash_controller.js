@@ -1,7 +1,7 @@
 import { Controller } from 'stimulus'
 import { addStylesToElement } from '../src/helpers.js'
 
-// Alert Controller
+// Flash Controller
 // Allows element to be hidden/dismissed
 export default class extends Controller {
   static targets = [ 'dismiss' ]

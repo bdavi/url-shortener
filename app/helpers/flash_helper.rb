@@ -2,19 +2,18 @@
 
 # View helpers for the flash
 module FlashHelper
-  DISPLAYABLE_FLASH_TYPES = %w[notice alert warning].freeze
-
-  FLASH_TO_ALERT_TYPE_MAP = {
+  FLASH_TYPE_ICON_MAP = {
+    'error' => 'warning_triangle',
     'notice' => 'info',
-    'alert' => 'error',
-    'warning' => 'warning'
+    'alert' => 'exclamation',
+    'success' => 'check'
   }.freeze
 
-  def flash_is_displayable?(flash_type)
-    DISPLAYABLE_FLASH_TYPES.include?(flash_type)
+  def displayable_flash_types
+    %w[error notice alert success].freeze
   end
 
-  def alert_type(flash_type)
-    FLASH_TO_ALERT_TYPE_MAP[flash_type]
+  def flash_icon(type)
+    unicode_icon(FLASH_TYPE_ICON_MAP[type])
   end
 end

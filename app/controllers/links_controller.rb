@@ -6,9 +6,9 @@ class LinksController < ApplicationController
     link = Links::Builder.new.build(link_params)
 
     if link.save
-      redirect_to root_path, notice: 'Link was successfully created.'
+      redirect_to root_path, flash: { success: 'Link was successfully created.' }
     else
-      redirect_to root_path, alert: 'There was an error creating the link'
+      redirect_to root_path, flash: { error: 'There was an error creating the link' }
     end
   end
 

@@ -3,6 +3,6 @@
 # Controller for user dashboard routes
 class DashboardController < ApplicationController
   def show
-    @dashboard = Dashboard.new
+    @dashboard = DashboardPresenter.new
   end
 end

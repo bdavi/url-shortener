@@ -32,6 +32,9 @@ module UrlShortener
     config.generators.system_tests = nil
 
     # Autoload additional files
-    config.autoload_paths += %W[#{config.root}/app/constraints]
+    config.autoload_paths += %W[
+      #{config.root}/app/constraints
+      #{config.root}/app/presenters
+    ]
   end
 end

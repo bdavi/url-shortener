@@ -1,0 +1,16 @@
+<%# Expects type and message in the locals %>
+<%# Value of type should be 'error', 'info' or 'warning'. %>
+
+<div data-controller="flash" data-target="flash.dismiss" class="flash flash-<%= type %>">
+  <div>
+    <span class="flash-icon">
+      <%= flash_icon(type) %>
+    </span>
+
+    <%= message %>
+  </div>
+
+  <span data-action="click->flash#dismiss" class="flash-close-button">
+    <%= unicode_icon('close') %>
+  </span>
+</div>
