@@ -47,3 +47,4 @@ jobs:
         RAILS_ENV: test
       run: |
         bundle exec rspec
+        yarn test
