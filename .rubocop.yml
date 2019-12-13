@@ -7,6 +7,9 @@ require:
 
 Metrics/LineLength:
   Max: 100
+  Exclude:
+    - config/**
+    - config/**/*
 
 AllCops:
   Exclude:
