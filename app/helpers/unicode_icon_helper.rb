@@ -7,12 +7,14 @@ module UnicodeIconHelper
     attr_reader :decimal_code, :char
 
     def initialize(decimal_code:, char:)
+      # rubocop:disable Rails/HelperInstanceVariable
       @decimal_code = decimal_code
       @char = char
+      # rubocop:enable Rails/HelperInstanceVariable
     end
 
     def to_html
-      "&##{decimal_code};".html_safe
+      "&##{decimal_code};".html_safe # rubocop:disable Rails/OutputSafety
     end
   end
 

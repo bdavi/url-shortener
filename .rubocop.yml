@@ -5,6 +5,9 @@ require:
   - rubocop-rspec
   - rubocop-thread_safety
 
+Metrics/LineLength:
+  Max: 100
+
 AllCops:
   Exclude:
     - 'node_modules/**'
