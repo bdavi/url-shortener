@@ -20,6 +20,9 @@
 /public/assets
 .byebug_history
 
+# Don't include simplecov files
+/coverage/*
+
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
