@@ -1,12 +1,15 @@
 h1 {
   @apply text-3xl;
 }
+
 h2 {
   @apply text-2xl;
 }
+
 h3 {
   @apply text-xl;
 }
+
 h4 {
   @apply text-lg;
 }
@@ -17,6 +20,5 @@ h3,
 h4,
 h5,
 h6 {
-  @apply text-gray-700 font-medium
+  @apply text-gray-700 font-medium;
 }
-

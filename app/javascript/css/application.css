@@ -6,6 +6,6 @@
 @import "./animation.css";
 @import "./flash.css";
 
+/* Finish tailsind imports */
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
-
