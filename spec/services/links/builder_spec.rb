@@ -16,7 +16,7 @@ RSpec.describe Links::Builder do
     context 'when no slug is passed in the attrs' do
       it 'generates a slug and sets the attribute' do
         slug = 'abc'
-        generator = double(generate_slug: slug)
+        generator = instance_double('AvailableSlugGenerator', generate_slug: slug)
         builder = described_class.new(slug_generator: generator)
         link = builder.build({})
 

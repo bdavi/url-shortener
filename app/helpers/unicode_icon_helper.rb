@@ -7,16 +7,18 @@ module UnicodeIconHelper
     attr_reader :decimal_code, :char
 
     def initialize(decimal_code:, char:)
+      # rubocop:disable Rails/HelperInstanceVariable
       @decimal_code = decimal_code
       @char = char
+      # rubocop:enable Rails/HelperInstanceVariable
     end
 
     def to_html
-      "&##{decimal_code};".html_safe
+      "&##{decimal_code};".html_safe # rubocop:disable Rails/OutputSafety
     end
   end
 
-  # rubocop:disable HashAlignment
+  # rubocop:disable Layout/HashAlignment
   UNICODE_ICONS = {
     close:            UnicodeIcon.new(decimal_code: '215',    char: '×'),
     warning_triangle: UnicodeIcon.new(decimal_code: '9888',   char: '⚠'),
@@ -24,7 +26,7 @@ module UnicodeIconHelper
     exclamation:      UnicodeIcon.new(decimal_code: '33',     char: '!'),
     check:            UnicodeIcon.new(decimal_code: '10003',  char: '✓')
   }.freeze
-  # rubocop:enable HashAlignment
+  # rubocop:enable Layout/HashAlignment
 
   def unicode_icon(name)
     UNICODE_ICONS[name.to_sym].to_html
