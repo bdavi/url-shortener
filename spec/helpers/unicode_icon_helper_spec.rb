@@ -4,19 +4,19 @@ require 'rails_helper'
 
 RSpec.describe UnicodeIconHelper, type: :helper do
   describe 'UnicodeIcon class' do
-    let(:decimal_code) { 9888 }
-    let(:char) { '⚠' }
-
-    subject do
+    subject(:icon) do
       UnicodeIconHelper::UnicodeIcon.new(decimal_code: decimal_code, char: char)
     end
+
+    let(:decimal_code) { 9888 }
+    let(:char) { '⚠' }
 
     it { is_expected.to respond_to :decimal_code }
     it { is_expected.to respond_to :char }
 
     describe '#to_html' do
       it 'returns the (html safe) html character code' do
-        html = subject.to_html
+        html = icon.to_html
         expect(html).to eq '&#9888;'
         expect(html).to be_html_safe
       end

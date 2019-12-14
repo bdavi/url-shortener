@@ -3,20 +3,36 @@
 require 'rails_helper'
 
 describe 'rendering the flash' do
-  it 'shows the displayable messages in the correct flash type' do
-    flash = {
+  let(:flash) do
+    {
       'alert' => 'Check yourself before you wreck yourself',
       'notice' => ['You should know this.', 'and this!'],
       'do_not_display' => 'should_not_be_rendered'
     }
+  end
 
+  def render_flash
     render partial: 'shared/flash', locals: { flash: flash }
+  end
 
-    expect(rendered).to     match(/Check yourself/)
-    expect(rendered).to     match(/flash-alert/)
-    expect(rendered).to     match(/You should/)
-    expect(rendered).to     match(/and this/)
-    expect(rendered).to_not match(/should_not_be_rendered/)
-    expect(rendered).to_not match(/do_not_display/)
+  it 'shows the displayable messages' do
+    render_flash
+    expect(rendered).to match(/Check yourself/)
+  end
+
+  it 'renders the correct flash class' do
+    render_flash
+    expect(rendered).to match(/flash-alert/)
+  end
+
+  it 'does not show non-displayable flash keys' do
+    render_flash
+    expect(rendered).not_to match(/should_not_be_rendered/)
+  end
+
+  it 'renders two messages when the key is an array' do
+    render_flash
+    expect(rendered).to match(/You should/)
+    expect(rendered).to match(/and this/)
   end
 end

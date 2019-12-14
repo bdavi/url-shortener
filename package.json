@@ -16,16 +16,25 @@
       "./spec/javascript/setup.js"
     ]
   },
+  "eslintIgnore": [
+    "application.js"
+  ],
   "dependencies": {
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "^4.2.0",
     "stimulus": "^1.1.1",
+    "stylelint": "^12.0.0",
+    "stylelint-config-standard": "^19.0.0",
     "tailwindcss": "^1.1.4"
   },
   "version": "0.1.0",
   "devDependencies": {
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.7.2",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.19.1",
     "jest": "^24.9.0",
     "mutationobserver-shim": "^0.3.3",
     "webpack-dev-server": "^3.9.0"

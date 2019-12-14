@@ -10,6 +10,8 @@ const addStylesToElement = (styles, element) => {
 // ############################################################################
 // Module Exports
 // ############################################################################
+
 export {
-  addStylesToElement
+  /* eslint-disable-next-line import/prefer-default-export */
+  addStylesToElement,
 };

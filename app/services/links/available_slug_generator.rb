@@ -35,5 +35,6 @@ module Links
     end
   end
 
+  # Error thrown when no unique slug is found within the specified retry limit
   class CouldNotFindUniqueSlugError < StandardError; end
 end

@@ -1,16 +1,16 @@
-import { Controller } from 'stimulus'
-import { addStylesToElement } from '../src/helpers.js'
+import { Controller } from 'stimulus';
+import { addStylesToElement } from '../src/helpers';
 
 // Flash Controller
 // Allows element to be hidden/dismissed
 export default class extends Controller {
-  static targets = [ 'dismiss' ]
+  static targets = ['dismiss']
 
   animationStyles = {
     animationDuration: '0.5s',
     animationName: 'fadeout',
     animationIterationCount: '1',
-    animationFillMode: 'forwards'
+    animationFillMode: 'forwards',
   }
 
   dismiss() {

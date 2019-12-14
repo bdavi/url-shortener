@@ -15,7 +15,7 @@ RSpec.describe Links::AvailableSlugGenerator do
     it 'raises error when collision retries limit is reached' do
       limit = 3
       generator = described_class.new(retries: limit)
-      allow(Link).to receive(:slug_is_available?) { false }
+      allow(Link).to receive(:slug_is_available?).and_return(false)
 
       expect do
         generator.generate_slug

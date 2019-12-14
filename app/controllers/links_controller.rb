@@ -14,12 +14,7 @@ class LinksController < ApplicationController
 
   def redirect
     link = Link.find_by(slug: params[:slug])
-
-    if link
-      redirect_to link.url
-    else
-      render file: Rails.root.join('public', '404.html'), status: 404
-    end
+    redirect_to link.url
   end
 
   private
