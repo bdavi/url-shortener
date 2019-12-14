@@ -20,7 +20,7 @@ jobs:
       with:
         ruby-version: 2.6.3
 
-    - name: Set up Node
+    - name: Set up Node 13.2.0
       uses: actions/setup-node@v1
       with:
         node-version: 13.2.0
@@ -49,6 +49,7 @@ jobs:
         bundle exec rspec
         yarn test
 
-    - name: Run Linting
+    - name: Run Linting & Analysis
       run: |
         bundle exec rubocop
+        bundle exec brakeman
