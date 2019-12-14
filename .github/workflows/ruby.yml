@@ -54,3 +54,5 @@ jobs:
         bundle exec rubocop
         bundle exec brakeman
         bundle audit check --update
+        npm i -g eslint
+        eslint -c ./.eslintrc.js ./app/javascript
