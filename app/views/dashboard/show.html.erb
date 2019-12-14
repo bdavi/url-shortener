@@ -27,16 +27,16 @@
     <% if @dashboard.recent_links.any? %>
       <% @dashboard.recent_links.each do |link| %>
         <li class="mb-4">
-          <strong>Link ID:</strong> 
+          <strong>Link ID: </strong>
           <%= link.id %>
           <br>
 
-          <strong>Long URL:</strong> 
-          <%= link_to link.url, link.url, target: '_blank' %>
+          <strong>Long URL: </strong>
+          <%= link_to link.url, link.url, target: '_blank', rel: 'noopener' %>
           <br>
 
-          <strong>Short URL:</strong> 
-          <%= link_to link.short_url, link.relative_short_url, target: '_blank' %>
+          <strong>Short URL: </strong>
+          <%= link_to link.short_url, link.relative_short_url, target: '_blank', rel: 'noopener' %>
         </li>
       <% end %>
     <% else %>
