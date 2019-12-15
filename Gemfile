@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read('.ruby-version').split('-').last
 
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'httparty'
 gem 'jbuilder', '~> 2.7'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '>= 4.3.1'
@@ -26,6 +27,7 @@ group :development, :test do
   gem 'rubocop-rake', require: false
   gem 'rubocop-rspec', require: false
   gem 'rubocop-thread_safety', require: false
+  gem 'webmock', require: false
 end
 
 group :test do
