@@ -38,5 +38,7 @@ module UrlShortener
     ]
 
     config.action_view.form_with_generates_remote_forms = false
+
+    config.active_job.queue_adapter = :sidekiq
   end
 end
