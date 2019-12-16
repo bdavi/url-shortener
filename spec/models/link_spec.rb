@@ -20,7 +20,7 @@ RSpec.describe Link, type: :model do
   it { is_expected.to validate_url_format_of :url }
 
   it 'has the expected statuses' do
-    expected = { 'pending' => 0, 'approved' => 1 }
+    expected = { 'pending' => 0, 'approved' => 1, 'failed_safety_check' => 2 }
     expect(described_class.statuses).to eq expected
   end
 
@@ -76,10 +76,12 @@ RSpec.describe Link, type: :model do
       end
     end
 
-    context 'when the slug has a pending link' do
-      it 'returns false' do
-        link = create(:link, :pending)
-        expect(described_class.slug_is_active?(link.slug)).to be false
+    %i[pending failed_safety_check].each do |status|
+      context "when the slug has a #{status} link" do
+        it 'returns false' do
+          link = create(:link, status)
+          expect(described_class.slug_is_active?(link.slug)).to be false
+        end
       end
     end
 

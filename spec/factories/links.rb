@@ -10,12 +10,10 @@ FactoryBot.define do
       "slug-#{n}"
     end
 
-    trait :pending do
-      status { 'pending' }
-    end
-
-    trait :approved do
-      status { 'approved' }
+    Link.statuses.each do |status, _|
+      trait status do
+        status { status }
+      end
     end
   end
 end
