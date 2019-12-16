@@ -12,9 +12,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_191_204_202_149) do
+ActiveRecord::Schema.define(version: 20_191_216_004_130) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
+
+  create_table 'external_http_request_logs', force: :cascade do |t|
+    t.text 'kind', null: false
+    t.jsonb 'meta'
+    t.text 'response_body', null: false
+    t.integer 'response_code', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+  end
 
   create_table 'links', force: :cascade do |t|
     t.text 'url', null: false
