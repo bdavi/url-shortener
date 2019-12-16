@@ -3,62 +3,62 @@
 # Wraps Google Safe Browsing API V4
 # See the docs at https://developers.google.com/safe-browsing/v4
 class GoogleSafeBrowsingApi
-  LOOKUP_BASE_URL = 'https://safebrowsing.googleapis.com/v4/threatMatches:find?key='
-
-  THREAT_LIST_BASE_URL = 'https://safebrowsing.googleapis.com/v4/threatLists?key='
+  BASE_ENDPOINT_URL = 'https://safebrowsing.googleapis.com/v4/threatMatches:find?key='
 
   HEADERS = { 'Content-Type' => 'application/json' }.freeze
 
-  NO_THREATS_FOUND_BODY = "{}\n"
+  NO_THREATS_FOUND_RESPONSE_BODY = "{}\n"
 
-  attr_reader :_response, :_url
+  attr_reader :response, :url, :log_requests_made
 
-  def lookup_url(url)
-    @_url = url
-    @_response = HTTParty.post(_lookup_url, headers: HEADERS, body: _lookup_request_body)
-
-    _raise_lookup_failed_error unless _response.code == 200
-
-    _formatted_response
+  def initialize(log_requests_made: true)
+    @log_requests_made = log_requests_made
   end
 
-  def download_threat_lists
-    HTTParty.get(_threat_list_url, headers: HEADERS)
+  def url_is_safe?(url)
+    lookup_url(url)
+    _raise_failure_error if _request_failed?
+    _safe?
+  end
+
+  def lookup_url(url)
+    @url = url
+    @response = HTTParty.post(_endpoint_url, headers: HEADERS, body: _request_body)
+    _log_lookup_request if log_requests_made
   end
 
   private
 
-  def _formatted_response
-    OpenStruct.new(
-      body: _response.body,
-      code: _response.code,
-      safe?: _safe?,
-      url_tested: _url
+  def _request_failed?
+    response.code != 200
+  end
+
+  def _log_lookup_request
+    ExternalHttpRequestLog.create(
+      kind: 'GoogleSafeBrowsingApi#lookup_url',
+      meta: {
+        url_tested: url,
+        safe?: _safe?
+      },
+      response_body: response.body,
+      response_code: response.code
     )
   end
 
   def _safe?
-    _response.body == NO_THREATS_FOUND_BODY
+    response.body == NO_THREATS_FOUND_RESPONSE_BODY
   end
 
-  def _raise_lookup_failed_error
-    raise LookupURLFailedError, "API returned: #{_response.code}"
+  def _raise_failure_error
+    raise LookupURLFailedError, "API returned: #{response.code}"
   end
 
-  def _api_key
-    ENV['GOOGLE_SAFE_BROWSING_API_KEY']
-  end
-
-  def _lookup_url
-    LOOKUP_BASE_URL + _api_key
-  end
-
-  def _threat_list_url
-    THREAT_LIST_BASE_URL + _api_key
+  def _endpoint_url
+    BASE_ENDPOINT_URL + ENV['GOOGLE_SAFE_BROWSING_API_KEY']
   end
 
   # rubocop:disable Metrics/MethodLength,Style/WordArray
-  def _lookup_request_body
+  def _request_body
     {
       client: {
         clientId: 'url-shortener',
@@ -73,7 +73,7 @@ class GoogleSafeBrowsingApi
         ],
         platformTypes: ['ANY_PLATFORM'],
         threatEntryTypes: ['URL'],
-        threatEntries: [{ url: _url }]
+        threatEntries: [{ url: url }]
       }
     }.to_json
   end

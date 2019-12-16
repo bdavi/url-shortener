@@ -6,28 +6,11 @@ class LinkSafetyCheckJob < ApplicationJob
 
   discard_on ActiveJob::DeserializationError
 
-  def perform(link, url_checker: GoogleSafeBrowsingApi.new)
-    result = url_checker.lookup_url(link.url)
-    _persist_results_of_check(result)
-
-    if result.safe?
+  def perform(link, api: GoogleSafeBrowsingApi.new)
+    if api.url_is_safe?(link.url)
       link.approved!
     else
       link.failed_safety_check!
     end
-  end
-
-  private
-
-  def _persist_results_of_check(result)
-    ExternalHttpRequestLog.create(
-      kind: 'GoogleSafeBrowsingApi#lookup_url',
-      meta: {
-        url_tested: result.url_tested,
-        safe?: result.safe?
-      },
-      response_body: result.body,
-      response_code: result.code
-    )
   end
 end
