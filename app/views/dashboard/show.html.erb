@@ -36,7 +36,11 @@
           <br>
 
           <strong>Short URL: </strong>
-          <%= link_to link.short_url, link.relative_short_url, target: '_blank', rel: 'noopener' %>
+          <% if link.approved? %>
+            <%= link_to link.short_url, link.relative_short_url, target: '_blank', rel: 'noopener' %>
+          <% else %>
+            <span class="italic text-green-500">Pending Approval</span>
+          <% end %>
         </li>
       <% end %>
     <% else %>
