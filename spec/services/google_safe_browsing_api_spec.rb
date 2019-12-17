@@ -60,33 +60,18 @@ RSpec.describe GoogleSafeBrowsingApi do
       expect(api.response.body).to eq response_body
     end
 
-    context 'when logging requests' do
-      it 'records the response in a ExternalHttpRequestLog' do
-        api = described_class.new(should_log_requests: true)
-        url = 'http://www.some-unique-url.com'
-        stub_lookup_request(url: url, response_body: 'the-body', response_code: 422)
+    it 'logs the request' do
+      url = 'http://www.some-unique-url.com'
+      stub_lookup_request(url: url, response_body: 'the-body', response_code: 200)
 
-        api.lookup_url(url)
+      expect(api.logger).to receive(:log).with(
+        kind: 'GoogleSafeBrowsingApi#lookup_url',
+        meta: { url_tested: url, safe?: false },
+        response_code: 200,
+        response_body: 'the-body'
+      )
 
-        log = ExternalHttpRequestLog.find_by("meta ->> 'url_tested' = ?", url)
-        expect(log).to have_attributes(
-          response_code: 422,
-          response_body: 'the-body',
-          kind: 'GoogleSafeBrowsingApi#lookup_url'
-        )
-      end
-    end
-
-    context 'when not logging requests' do
-      it 'does not create a ExternalHttpRequestLog' do
-        api = described_class.new(should_log_requests: false)
-        url = 'http://www.test.com'
-        stub_lookup_request(url: url)
-
-        expect do
-          api.lookup_url(url)
-        end.not_to change(ExternalHttpRequestLog, :count)
-      end
+      api.lookup_url(url)
     end
   end
 

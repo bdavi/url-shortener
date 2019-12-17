@@ -9,10 +9,11 @@ class GoogleSafeBrowsingApi
 
   NO_THREATS_FOUND_RESPONSE_BODY = "{}\n"
 
-  attr_reader :response, :url, :should_log_requests
+  attr_reader :response, :url, :logger
 
-  def initialize(should_log_requests: true)
-    @should_log_requests = should_log_requests
+  # Use NullExternalRequestLogger if you don't want to log requests
+  def initialize(logger: ExternalRequestLogger.new)
+    @logger = logger
   end
 
   def url_is_safe?(url)
@@ -24,7 +25,13 @@ class GoogleSafeBrowsingApi
   def lookup_url(url)
     @url = url
     @response = HTTParty.post(_endpoint_url, headers: HEADERS, body: _request_body)
-    _log_request if should_log_requests
+
+    logger.log(
+      kind: 'GoogleSafeBrowsingApi#lookup_url',
+      meta: { url_tested: url, safe?: _safe? },
+      response_body: response.body,
+      response_code: response.code
+    )
   end
 
   private
@@ -35,18 +42,6 @@ class GoogleSafeBrowsingApi
 
   def _request_failed?
     response.code != 200
-  end
-
-  def _log_request
-    ExternalHttpRequestLog.create(
-      kind: 'GoogleSafeBrowsingApi#lookup_url',
-      meta: {
-        url_tested: url,
-        safe?: _safe?
-      },
-      response_body: response.body,
-      response_code: response.code
-    )
   end
 
   def _safe?
