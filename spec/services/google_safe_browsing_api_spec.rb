@@ -7,7 +7,7 @@ RSpec.describe GoogleSafeBrowsingApi do
 
   let(:key) { '123' }
 
-  before { allow(ENV).to receive(:[]).with('GOOGLE_SAFE_BROWSING_API_KEY').and_return(key) }
+  before { ENV['GOOGLE_SAFE_BROWSING_API_KEY'] = key }
 
   describe '#url_is_safe(url)' do
     context 'when the url is safe' do
@@ -62,7 +62,7 @@ RSpec.describe GoogleSafeBrowsingApi do
 
     context 'when logging requests' do
       it 'records the response in a ExternalHttpRequestLog' do
-        api = described_class.new(log_requests_made: true)
+        api = described_class.new(should_log_requests: true)
         url = 'http://www.some-unique-url.com'
         stub_lookup_request(url: url, response_body: 'the-body', response_code: 422)
 
@@ -79,7 +79,7 @@ RSpec.describe GoogleSafeBrowsingApi do
 
     context 'when not logging requests' do
       it 'does not create a ExternalHttpRequestLog' do
-        api = described_class.new(log_requests_made: false)
+        api = described_class.new(should_log_requests: false)
         url = 'http://www.test.com'
         stub_lookup_request(url: url)
 

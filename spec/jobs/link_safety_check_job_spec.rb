@@ -12,6 +12,7 @@ RSpec.describe LinkSafetyCheckJob, type: :job do
         api = instance_double('GoogleSafeBrowsingApi', url_is_safe?: true)
 
         job.perform(link, api: api)
+
         expect(link.reload).to be_approved
       end
     end
@@ -22,6 +23,7 @@ RSpec.describe LinkSafetyCheckJob, type: :job do
         api = instance_double('GoogleSafeBrowsingApi', url_is_safe?: false)
 
         job.perform(link, api: api)
+
         expect(link.reload).to be_failed_safety_check
       end
     end

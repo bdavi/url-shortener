@@ -5,15 +5,11 @@ FactoryBot.define do
     kind { 'SomeClass#method' }
 
     meta do
-      {
-        some: 'extra info here'
-      }
+      { some: 'extra info here' }
     end
 
     response_body do
-      {
-        the: 'response'
-      }.to_json
+      { the: 'response' }.to_json
     end
 
     response_code { 200 }

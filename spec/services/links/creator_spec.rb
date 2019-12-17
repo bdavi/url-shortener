@@ -8,8 +8,7 @@ RSpec.describe Links::Creator do
   describe '#create' do
     it 'returns a link with the passed attribues' do
       url = 'http://www.google.com'
-      attrs = { url: url }
-      link = creator.create(attrs)
+      link = creator.create(url: url)
 
       expect(link).to be_a Link
       expect(link.url).to eq url
@@ -17,8 +16,7 @@ RSpec.describe Links::Creator do
 
     it 'persists the link' do
       url = 'http://www.google.com'
-      attrs = { url: url }
-      link = creator.create(attrs)
+      link = creator.create(url: url)
 
       expect(link).to be_persisted
     end
@@ -26,9 +24,9 @@ RSpec.describe Links::Creator do
     it 'enqueues a LinkSafetyCheckJob' do
       ActiveJob::Base.queue_adapter = :test
       url = 'http://www.google.com'
-      attrs = { url: url }
+
       expect do
-        creator.create(attrs)
+        creator.create(url: url)
       end.to have_enqueued_job(LinkSafetyCheckJob)
     end
 
@@ -55,8 +53,7 @@ RSpec.describe Links::Creator do
         generator = instance_double('AvailableSlugGenerator', generate_slug: slug)
         creator = described_class.new(slug_generator: generator)
         url = 'http://www.google.com'
-        attrs = { url: url }
-        link = creator.create(attrs)
+        link = creator.create(url: url)
 
         expect(link.slug).to eq slug
       end
@@ -66,8 +63,7 @@ RSpec.describe Links::Creator do
       it 'sets that value on the link' do
         slug = 'abc'
         url = 'http://www.google.com'
-        attrs = { url: url, slug: slug }
-        link = creator.create(attrs)
+        link = creator.create(url: url, slug: slug)
 
         expect(link.slug).to eq slug
       end

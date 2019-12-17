@@ -3,16 +3,16 @@
 # Wraps Google Safe Browsing API V4
 # See the docs at https://developers.google.com/safe-browsing/v4
 class GoogleSafeBrowsingApi
-  BASE_ENDPOINT_URL = 'https://safebrowsing.googleapis.com/v4/threatMatches:find?key='
+  ENDPOINT_BASE_URL = 'https://safebrowsing.googleapis.com/v4/threatMatches:find?key='
 
   HEADERS = { 'Content-Type' => 'application/json' }.freeze
 
   NO_THREATS_FOUND_RESPONSE_BODY = "{}\n"
 
-  attr_reader :response, :url, :log_requests_made
+  attr_reader :response, :url, :should_log_requests
 
-  def initialize(log_requests_made: true)
-    @log_requests_made = log_requests_made
+  def initialize(should_log_requests: true)
+    @should_log_requests = should_log_requests
   end
 
   def url_is_safe?(url)
@@ -24,16 +24,20 @@ class GoogleSafeBrowsingApi
   def lookup_url(url)
     @url = url
     @response = HTTParty.post(_endpoint_url, headers: HEADERS, body: _request_body)
-    _log_lookup_request if log_requests_made
+    _log_request if should_log_requests
   end
 
   private
+
+  def _endpoint_url
+    ENDPOINT_BASE_URL + ENV['GOOGLE_SAFE_BROWSING_API_KEY']
+  end
 
   def _request_failed?
     response.code != 200
   end
 
-  def _log_lookup_request
+  def _log_request
     ExternalHttpRequestLog.create(
       kind: 'GoogleSafeBrowsingApi#lookup_url',
       meta: {
@@ -51,10 +55,6 @@ class GoogleSafeBrowsingApi
 
   def _raise_failure_error
     raise LookupURLFailedError, "API returned: #{response.code}"
-  end
-
-  def _endpoint_url
-    BASE_ENDPOINT_URL + ENV['GOOGLE_SAFE_BROWSING_API_KEY']
   end
 
   # rubocop:disable Metrics/MethodLength,Style/WordArray
