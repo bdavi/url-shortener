@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+
+# frozen_string_literal: true
+
+require 'open3'
+require 'forwardable'
+
+# Commands to run for pre-build
+class Command
+  extend Forwardable
+
+  attr_reader :name, :cmd, :output, :status
+
+  def_delegator :@status, :success?
+
+  def initialize(name:, cmd:)
+    @name = name
+    @cmd = cmd
+  end
+
+  def run
+    @output, _, @status = Open3.capture3(cmd)
+    puts output unless success?
+  end
+
+  def to_s
+    "#{name.ljust(12)}: #{success? ? 'Success!' : 'FAIL'}"
+  end
+end
+
+commands = [
+  Command.new(name: 'Rspec', cmd: 'bundle exec rspec'),
+  Command.new(name: 'Jest', cmd: 'yarn test'),
+  Command.new(name: 'Rubocop', cmd: 'bundle exec rubocop'),
+  Command.new(name: 'Brakeman', cmd: 'bundle exec brakeman'),
+  Command.new(name: 'Bundle Audit', cmd: 'bundle audit check --update'),
+  Command.new(name: 'Eslint', cmd: 'yarn eslint -c ./.eslintrc.js ./app/javascript'),
+  Command.new(name: 'ErbLint', cmd: 'bundle exec erblint --config .erb-lint.yml --lint-all'),
+  Command.new(name: 'Stylelint', cmd: 'yarn stylelint app/javascript/css/**/*.css')
+]
+
+puts commands.each(&:run)
