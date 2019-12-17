@@ -38,6 +38,7 @@ jobs:
       env:
         PGHOST: localhost
         PGUSER: postgres
+        REDIS_PROVIDER: redis://localhost:6379
         RAILS_ENV: test
       run: |
         gem install bundler
