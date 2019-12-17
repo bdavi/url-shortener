@@ -26,7 +26,7 @@
   <ul>
     <% if @dashboard.recent_links.any? %>
       <% @dashboard.recent_links.each do |link| %>
-        <li class="mb-4">
+        <li class="mb-5">
           <strong>Link ID: </strong>
           <%= link.id %>
           <br>
@@ -35,12 +35,16 @@
           <%= link_to link.url, link.url, target: '_blank', rel: 'noopener' %>
           <br>
 
-          <strong>Short URL: </strong>
           <% if link.approved? %>
+            <strong>Short URL: </strong>
             <%= link_to link.short_url, link.relative_short_url, target: '_blank', rel: 'noopener' %>
-          <% else %>
-            <span class="italic text-green-500">Pending Approval</span>
           <% end %>
+
+          <div class='my-1'>
+            <span class='link-status-badge-<%= link.status.dasherize %>'>
+              <%= link.status.titleize %>
+            </span>
+          </div>
         </li>
       <% end %>
     <% else %>
