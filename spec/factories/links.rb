@@ -10,7 +10,7 @@ FactoryBot.define do
       "slug-#{n}"
     end
 
-    Link.statuses.each do |status, _|
+    Link.statuses.keys.each do |status|
       trait status do
         status { status }
       end

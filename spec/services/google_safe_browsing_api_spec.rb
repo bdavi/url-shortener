@@ -29,7 +29,7 @@ RSpec.describe GoogleSafeBrowsingApi do
     end
 
     context 'when the request does not succeed' do
-      it 'returns raises a LookupURLFailedError' do
+      it 'raises a LookupURLFailedError' do
         url = 'http://www.test.com'
         stub_lookup_request(url: url, response_code: 402)
 
