@@ -4,12 +4,12 @@
 - Ruby 2.6.3
 - Node 13.2.0
 - Yarn 1.21.1
+- Heroku CLI
 
 ## Initial Setup
 Run the following:
 ```
 > gem install bundler
-> gem install foreman
 > bundle install
 > yarn install
 > bin/rails db:setup
@@ -36,8 +36,9 @@ Run the following:
 ## Start Application
 Run the following:
 ```
-> foreman start
+> heroku local
 ```
 
 Application should be available at `localhost:5000`.
+
 Sidekiq console should be available at `localhost:5000/sidekiq`.
