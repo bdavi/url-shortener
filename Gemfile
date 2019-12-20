@@ -28,6 +28,7 @@ group :development, :test do
   gem 'rubocop-rake', require: false
   gem 'rubocop-rspec', require: false
   gem 'rubocop-thread_safety', require: false
+  gem 'rubycritic', require: false
   gem 'webmock', require: false
 end
 
