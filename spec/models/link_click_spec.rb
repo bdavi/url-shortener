@@ -11,6 +11,20 @@ RSpec.describe LinkClick, type: :model do
 
   it { is_expected.to have_attribute :referer }
 
+  it { is_expected.to have_attribute :device_family }
+
+  it { is_expected.to have_attribute :device_model }
+
+  it { is_expected.to have_attribute :device_brand }
+
+  it { is_expected.to have_attribute :os_family }
+
+  it { is_expected.to have_attribute :os_version }
+
+  it { is_expected.to have_attribute :user_agent_family }
+
+  it { is_expected.to have_attribute :user_agent_version }
+
   it { is_expected.to validate_presence_of :host }
 
   it { is_expected.to validate_presence_of :user_agent }

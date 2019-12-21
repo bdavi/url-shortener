@@ -9,10 +9,13 @@ RSpec.describe ClickRecorder, type: :service do
 
   describe '#record_click' do
     # rubocop:disable RSpec/ExampleLength
-    it 'creates a LinkClick with the environment attributes' do
+    it 'creates a LinkClick with the correct attributes' do
+      agent = 'Mozilla/5.0 (iPad; CPU OS 10_2_1 like Mac OS X) AppleWebKit/600.1.4' \
+                ' (KHTML, like Gecko) GSA/23.1.148956103 Mobile/14D27 Safari/600.1.4'
+
       env_data = {
         'HTTP_HOST' => 'some-random-host',
-        'HTTP_USER_AGENT' => 'agent',
+        'HTTP_USER_AGENT' => agent,
         'HTTP_REFERER' => 'referer',
         'REMOTE_ADDR' => '73.243.86.12'
       }
@@ -21,10 +24,17 @@ RSpec.describe ClickRecorder, type: :service do
 
       expect(click).to have_attributes(
         host: 'some-random-host',
-        user_agent: 'agent',
+        user_agent: agent,
         referer: 'referer',
         link_id: link.id,
-        anonymized_ip: '73.243.86.X'
+        anonymized_ip: '73.243.86.X',
+        device_family: 'iPad',
+        device_model: 'iPad',
+        device_brand: 'Apple',
+        os_family: 'iOS',
+        os_version: '10.2.1',
+        user_agent_family: 'Google',
+        user_agent_version: '23.1.148956103'
       )
       expect(click).to be_persisted
     end

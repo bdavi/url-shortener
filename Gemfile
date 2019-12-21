@@ -12,6 +12,7 @@ gem 'puma', '>= 4.3.1'
 gem 'rails', '~> 6.0.1'
 gem 'sidekiq'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'user_agent_parser'
 gem 'webpacker', '~> 4.0'
 
 group :development, :test do

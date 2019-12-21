@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_21_015859) do
+ActiveRecord::Schema.define(version: 2019_12_21_083428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,13 @@ ActiveRecord::Schema.define(version: 2019_12_21_015859) do
     t.string "anonymized_ip", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "device_family"
+    t.string "device_model"
+    t.string "device_brand"
+    t.string "os_family"
+    t.string "os_version"
+    t.string "user_agent_family"
+    t.string "user_agent_version"
     t.index ["link_id"], name: "index_link_clicks_on_link_id"
   end
 

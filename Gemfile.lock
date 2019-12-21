@@ -302,6 +302,7 @@ GEM
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     unicode-display_width (1.6.0)
+    user_agent_parser (2.5.2)
     web-console (4.0.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -355,6 +356,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
+  user_agent_parser
   web-console (>= 3.3.0)
   webmock
   webpacker (~> 4.0)
