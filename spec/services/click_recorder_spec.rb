@@ -3,7 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe ClickRecorder, type: :service do
-  subject(:recorder) { described_class.new }
+  subject(:recorder) do
+    location_provider = instance_double('IpWhoIsApi', get_location_data: {})
+    described_class.new(location_provider: location_provider)
+  end
 
   let(:link) { create(:link) }
 
@@ -12,13 +15,24 @@ RSpec.describe ClickRecorder, type: :service do
     it 'creates a LinkClick with the correct attributes' do
       agent = 'Mozilla/5.0 (iPad; CPU OS 10_2_1 like Mac OS X) AppleWebKit/600.1.4' \
                 ' (KHTML, like Gecko) GSA/23.1.148956103 Mobile/14D27 Safari/600.1.4'
-
       env_data = {
         'HTTP_HOST' => 'some-random-host',
         'HTTP_USER_AGENT' => agent,
         'HTTP_REFERER' => 'referer',
         'REMOTE_ADDR' => '73.243.86.12'
       }
+      location_data = {
+        'country' => 'United States',
+        'region' => 'Colorado',
+        'city' => 'Denver',
+        'latitude' => '39.7392358',
+        'longitude' => '-104.990251',
+        'isp' => 'Comcast Cable Communications, LLC',
+        'timezone' => 'America/Denver',
+        'timezone_name' => 'Mountain Standard Time'
+      }
+      location_provider = instance_double('IpWhoIsApi', get_location_data: location_data)
+      recorder = described_class.new(location_provider: location_provider)
 
       click = recorder.record_click(link, env_data)
 
@@ -34,7 +48,15 @@ RSpec.describe ClickRecorder, type: :service do
         os_family: 'iOS',
         os_version: '10.2.1',
         user_agent_family: 'Google',
-        user_agent_version: '23.1.148956103'
+        user_agent_version: '23.1.148956103',
+        country: 'United States',
+        region: 'Colorado',
+        city: 'Denver',
+        latitude: 0.397392358e2,
+        longitude: -0.104990251e3,
+        isp: 'Comcast Cable Communications, LLC',
+        timezone: 'America/Denver',
+        timezone_name: 'Mountain Standard Time'
       )
       expect(click).to be_persisted
     end

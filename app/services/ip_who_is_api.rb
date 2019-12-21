@@ -23,7 +23,7 @@ class IpWhoIsApi
     @logger = logger
   end
 
-  def location_data(ip_address)
+  def get_location_data(ip_address)
     lookup_ip_address(ip_address)
     _parsed_response_body.slice(*LOCATION_DATA_KEYS)
   end

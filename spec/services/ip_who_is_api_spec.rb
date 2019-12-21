@@ -75,7 +75,7 @@ RSpec.describe IpWhoIsApi do
     end
   end
 
-  describe '#location_data(ip_address)' do
+  describe '#get_location_data(ip_address)' do
     # rubocop:disable RSpec/ExampleLength
     it 'returns a subset of the response as a hash' do
       body = {
@@ -124,7 +124,7 @@ RSpec.describe IpWhoIsApi do
         'timezone_name' => 'Mountain Standard Time'
       }
 
-      expect(api.location_data(ip_address)).to eq expected
+      expect(api.get_location_data(ip_address)).to eq expected
     end
     # rubocop:enable RSpec/ExampleLength
   end

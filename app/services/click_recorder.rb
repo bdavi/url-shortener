@@ -2,21 +2,31 @@
 
 # Records a link click
 class ClickRecorder
-  attr_reader :user_agent_parser
+  attr_reader :user_agent_parser, :location_provider
 
-  def initialize(user_agent_parser: UserAgentParser)
+  def initialize(
+    user_agent_parser: UserAgentParser,
+    location_provider: IpWhoIsApi.new
+  )
     @user_agent_parser = user_agent_parser
+    @location_provider = location_provider
   end
 
   def record_click(link, env_data)
     click = LinkClick.new(link: link)
     _assign_env_attrs(click, env_data)
     _assign_parsed_user_agent_attrs(click)
+    _assign_location_attrs(click, env_data['REMOTE_ADDR'])
     click.save!
     click
   end
 
   private
+
+  def _assign_location_attrs(click, ip_address)
+    location_data = location_provider.get_location_data(ip_address)
+    click.assign_attributes(location_data)
+  end
 
   def _assign_env_attrs(click, env_data)
     click.host = env_data['HTTP_HOST']
