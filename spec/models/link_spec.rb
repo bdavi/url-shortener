@@ -13,6 +13,8 @@ RSpec.describe Link, type: :model do
 
   it { is_expected.to have_attribute :status }
 
+  it { is_expected.to have_many(:link_clicks).dependent(:restrict_with_error) }
+
   it { is_expected.to validate_presence_of :url }
 
   it { is_expected.to validate_presence_of :slug }
