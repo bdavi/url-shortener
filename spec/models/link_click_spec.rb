@@ -25,6 +25,22 @@ RSpec.describe LinkClick, type: :model do
 
   it { is_expected.to have_attribute :user_agent_version }
 
+  it { is_expected.to have_attribute :country }
+
+  it { is_expected.to have_attribute :region }
+
+  it { is_expected.to have_attribute :city }
+
+  it { is_expected.to have_attribute :isp }
+
+  it { is_expected.to have_attribute :latitude }
+
+  it { is_expected.to have_attribute :longitude }
+
+  it { is_expected.to have_attribute :timezone }
+
+  it { is_expected.to have_attribute :timezone_name }
+
   it { is_expected.to validate_presence_of :host }
 
   it { is_expected.to validate_presence_of :user_agent }

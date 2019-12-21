@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_21_083428) do
+ActiveRecord::Schema.define(version: 2019_12_21_214229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,14 @@ ActiveRecord::Schema.define(version: 2019_12_21_083428) do
     t.string "os_version"
     t.string "user_agent_family"
     t.string "user_agent_version"
+    t.string "country"
+    t.string "region"
+    t.string "city"
+    t.string "isp"
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.string "timezone"
+    t.string "timezone_name"
     t.index ["link_id"], name: "index_link_clicks_on_link_id"
   end
 
