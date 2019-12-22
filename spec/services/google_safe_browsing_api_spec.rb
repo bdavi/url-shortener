@@ -27,17 +27,6 @@ RSpec.describe GoogleSafeBrowsingApi do
         expect(api.url_is_safe?(url)).to be false
       end
     end
-
-    context 'when the request does not succeed' do
-      it 'raises a LookupURLFailedError' do
-        url = 'http://www.test.com'
-        stub_lookup_request(url: url, response_code: 402)
-
-        expect do
-          api.url_is_safe?(url)
-        end.to raise_error(described_class::LookupURLFailedError)
-      end
-    end
   end
 
   describe '#lookup_url(url)' do
@@ -72,6 +61,17 @@ RSpec.describe GoogleSafeBrowsingApi do
       )
 
       api.lookup_url(url)
+    end
+
+    context 'when the request does not succeed' do
+      it 'raises a LookupURLFailedError' do
+        url = 'http://www.test.com'
+        stub_lookup_request(url: url, response_code: 402)
+
+        expect do
+          api.lookup_url(url)
+        end.to raise_error(described_class::LookupURLFailedError)
+      end
     end
   end
 

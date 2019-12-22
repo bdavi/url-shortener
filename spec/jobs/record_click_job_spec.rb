@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe RecordClickJob, type: :job do
   subject(:job) { described_class.new }
 
-  it 'passes the link and env_data to recorder' do
+  it 'passes the link, env_data and clicked_at to recorder' do
     recorder = instance_double('ClickRecorder')
     link = instance_double('Link')
     env_data = {}

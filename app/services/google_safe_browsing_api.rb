@@ -18,7 +18,6 @@ class GoogleSafeBrowsingApi
 
   def url_is_safe?(url)
     lookup_url(url)
-    _raise_failure_error if _request_failed?
     _safe?
   end
 
@@ -26,6 +25,13 @@ class GoogleSafeBrowsingApi
     @url = url
     @response = HTTParty.post(_endpoint_url, headers: HEADERS, body: _request_body)
 
+    _log_request
+    _raise_failure_error if _request_failed?
+  end
+
+  private
+
+  def _log_request
     logger.log(
       kind: 'GoogleSafeBrowsingApi#lookup_url',
       meta: { url_tested: url, safe?: _safe? },
@@ -33,8 +39,6 @@ class GoogleSafeBrowsingApi
       response_code: response.code
     )
   end
-
-  private
 
   def _endpoint_url
     ENDPOINT_BASE_URL + ENV['GOOGLE_SAFE_BROWSING_API_KEY']

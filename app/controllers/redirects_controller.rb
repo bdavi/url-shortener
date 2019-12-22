@@ -6,13 +6,13 @@ class RedirectsController < ApplicationController
 
   def show
     link = Link.find_by(slug: params[:slug])
-    RecordClickJob.perform_later(link, _recordable_env)
+    _record_click(link)
     redirect_to link.url
   end
 
   private
 
-  def _record_click
+  def _record_click(link)
     RecordClickJob.perform_later(
       link: link,
       env_data: _recordable_env,
