@@ -13,6 +13,7 @@ RSpec.describe ClickRecorder, type: :service do
   describe '#record_click' do
     # rubocop:disable RSpec/ExampleLength
     it 'creates a LinkClick with the correct attributes' do
+      clicked_at = DateTime.now
       agent = 'Mozilla/5.0 (iPad; CPU OS 10_2_1 like Mac OS X) AppleWebKit/600.1.4' \
                 ' (KHTML, like Gecko) GSA/23.1.148956103 Mobile/14D27 Safari/600.1.4'
       env_data = {
@@ -34,7 +35,7 @@ RSpec.describe ClickRecorder, type: :service do
       location_provider = instance_double('IpWhoIsApi', get_location_data: location_data)
       recorder = described_class.new(location_provider: location_provider)
 
-      click = recorder.record_click(link, env_data)
+      click = recorder.record_click(link: link, env_data: env_data, clicked_at: clicked_at)
 
       expect(click).to have_attributes(
         host: 'some-random-host',
@@ -56,7 +57,8 @@ RSpec.describe ClickRecorder, type: :service do
         longitude: -0.104990251e3,
         isp: 'Comcast Cable Communications, LLC',
         timezone: 'America/Denver',
-        timezone_name: 'Mountain Standard Time'
+        timezone_name: 'Mountain Standard Time',
+        clicked_at: clicked_at
       )
       expect(click).to be_persisted
     end
@@ -70,7 +72,7 @@ RSpec.describe ClickRecorder, type: :service do
         'REMOTE_ADDR' => '2001::3238:DFE1:63:0000:0000:FEFB'
       }
 
-      click = recorder.record_click(link, env_data)
+      click = recorder.record_click(link: link, env_data: env_data, clicked_at: DateTime.now)
 
       expect(click.anonymized_ip).to eq '2001::3238:DFE1:63:0000:0000:X'
     end
@@ -84,7 +86,7 @@ RSpec.describe ClickRecorder, type: :service do
           'REMOTE_ADDR' => '2001::3238:DFE1:63:0000:0000:FEFB'
         }
 
-        click = recorder.record_click(link, env_data)
+        click = recorder.record_click(link: link, env_data: env_data, clicked_at: DateTime.now)
 
         expect(click.referer).to be_nil
       end
@@ -98,7 +100,7 @@ RSpec.describe ClickRecorder, type: :service do
         }
 
         expect do
-          recorder.record_click(link, env_data)
+          recorder.record_click(link: link, env_data: env_data, clicked_at: DateTime.now)
         end.to raise_error(ActiveRecord::RecordInvalid)
       end
     end

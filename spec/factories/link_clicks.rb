@@ -13,5 +13,7 @@ FactoryBot.define do
     referer { 'some.otherdomain.com/page' }
 
     anonymized_ip { '73.243.86.X' }
+
+    clicked_at { DateTime.now }
   end
 end

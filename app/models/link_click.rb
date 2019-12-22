@@ -8,5 +8,7 @@ class LinkClick < ApplicationRecord
 
   validates :anonymized_ip, presence: true
 
+  validates :clicked_at, presence: true
+
   belongs_to :link
 end

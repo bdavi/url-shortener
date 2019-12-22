@@ -12,8 +12,8 @@ class ClickRecorder
     @location_provider = location_provider
   end
 
-  def record_click(link, env_data)
-    click = LinkClick.new(link: link)
+  def record_click(link:, env_data:, clicked_at:)
+    click = LinkClick.new(link: link, clicked_at: clicked_at)
     _assign_env_attrs(click, env_data)
     _assign_parsed_user_agent_attrs(click)
     _assign_location_attrs(click, env_data['REMOTE_ADDR'])

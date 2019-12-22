@@ -12,6 +12,14 @@ class RedirectsController < ApplicationController
 
   private
 
+  def _record_click
+    RecordClickJob.perform_later(
+      link: link,
+      env_data: _recordable_env,
+      clicked_at: DateTime.now
+    )
+  end
+
   def _recordable_env
     request.env.slice(*RECORDABLE_ENV_KEYS)
   end
