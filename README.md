@@ -31,6 +31,7 @@ Run the following:
 > yarn eslint -c ./.eslintrc.js ./app/javascript
 > bundle exec erblint --config .erb-lint.yml --lint-all
 > yarn stylelint app/javascript/css/**/*.css
+> bundle exec rubycritic
 ```
 
 ## Start Application
