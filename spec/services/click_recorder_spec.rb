@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 
+# rubocop:disable RSpec/ExampleLength
 RSpec.describe ClickRecorder, type: :service do
   subject(:recorder) do
     location_provider = instance_double('IpWhoIsApi', get_location_data: {})
@@ -11,16 +12,15 @@ RSpec.describe ClickRecorder, type: :service do
   let(:link) { create(:link) }
 
   describe '#record_click' do
-    # rubocop:disable RSpec/ExampleLength
     it 'creates a LinkClick with the correct attributes' do
       clicked_at = DateTime.now
       agent = 'Mozilla/5.0 (iPad; CPU OS 10_2_1 like Mac OS X) AppleWebKit/600.1.4' \
                 ' (KHTML, like Gecko) GSA/23.1.148956103 Mobile/14D27 Safari/600.1.4'
+      remote_ip = '73.243.86.12'
       env_data = {
         'HTTP_HOST' => 'some-random-host',
         'HTTP_USER_AGENT' => agent,
-        'HTTP_REFERER' => 'referer',
-        'REMOTE_ADDR' => '73.243.86.12'
+        'HTTP_REFERER' => 'referer'
       }
       location_data = {
         'country' => 'United States',
@@ -35,7 +35,12 @@ RSpec.describe ClickRecorder, type: :service do
       location_provider = instance_double('IpWhoIsApi', get_location_data: location_data)
       recorder = described_class.new(location_provider: location_provider)
 
-      click = recorder.record_click(link: link, env_data: env_data, clicked_at: clicked_at)
+      click = recorder.record_click(
+        link: link,
+        env_data: env_data,
+        clicked_at: clicked_at,
+        remote_ip: remote_ip
+      )
 
       expect(click).to have_attributes(
         host: 'some-random-host',
@@ -62,17 +67,22 @@ RSpec.describe ClickRecorder, type: :service do
       )
       expect(click).to be_persisted
     end
-    # rubocop:enable RSpec/ExampleLength
 
     it 'anonymizes IPv6 addresses' do
       env_data = {
         'HTTP_HOST' => 'v6-host',
         'HTTP_USER_AGENT' => 'agent',
-        'HTTP_REFERER' => 'referer',
-        'REMOTE_ADDR' => '2001::3238:DFE1:63:0000:0000:FEFB'
+        'HTTP_REFERER' => 'referer'
       }
 
-      click = recorder.record_click(link: link, env_data: env_data, clicked_at: DateTime.now)
+      remote_ip = '2001::3238:DFE1:63:0000:0000:FEFB'
+
+      click = recorder.record_click(
+        link: link,
+        env_data: env_data,
+        clicked_at: DateTime.now,
+        remote_ip: remote_ip
+      )
 
       expect(click.anonymized_ip).to eq '2001::3238:DFE1:63:0000:0000:X'
     end
@@ -86,7 +96,12 @@ RSpec.describe ClickRecorder, type: :service do
           'REMOTE_ADDR' => '2001::3238:DFE1:63:0000:0000:FEFB'
         }
 
-        click = recorder.record_click(link: link, env_data: env_data, clicked_at: DateTime.now)
+        click = recorder.record_click(
+          link: link,
+          env_data: env_data,
+          clicked_at: DateTime.now,
+          remote_ip: 'ip'
+        )
 
         expect(click.referer).to be_nil
       end
@@ -100,9 +115,15 @@ RSpec.describe ClickRecorder, type: :service do
         }
 
         expect do
-          recorder.record_click(link: link, env_data: env_data, clicked_at: DateTime.now)
+          recorder.record_click(
+            link: link,
+            env_data: env_data,
+            clicked_at: DateTime.now,
+            remote_ip: 'ip'
+          )
         end.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
   end
 end
+# rubocop:enable RSpec/ExampleLength

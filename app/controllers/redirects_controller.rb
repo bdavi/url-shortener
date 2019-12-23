@@ -2,7 +2,7 @@
 
 # Controller for handling link redirection
 class RedirectsController < ApplicationController
-  RECORDABLE_ENV_KEYS = %w[HTTP_HOST HTTP_USER_AGENT HTTP_REFERER REMOTE_ADDR].freeze
+  RECORDABLE_ENV_KEYS = %w[HTTP_HOST HTTP_USER_AGENT HTTP_REFERER].freeze
 
   def show
     link = Link.find_by(slug: params[:slug])
@@ -16,7 +16,8 @@ class RedirectsController < ApplicationController
     RecordClickJob.perform_later(
       link: link,
       env_data: _recordable_env,
-      clicked_at: DateTime.now
+      clicked_at: DateTime.now,
+      remote_ip: request.remote_ip
     )
   end
 

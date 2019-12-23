@@ -12,19 +12,21 @@ class ClickRecorder
     @location_provider = location_provider
   end
 
-  def record_click(link:, env_data:, clicked_at:)
-    click = LinkClick.new(link: link, clicked_at: clicked_at)
-    _assign_env_attrs(click, env_data)
-    _assign_parsed_user_agent_attrs(click)
-    _assign_location_attrs(click, env_data['REMOTE_ADDR'])
-    click.save!
-    click
+  def record_click(link:, env_data:, clicked_at:, remote_ip:)
+    LinkClick.new(link: link, clicked_at: clicked_at).tap do |click|
+      _assign_env_attrs(click, env_data)
+      _assign_parsed_user_agent_attrs(click)
+      _assign_ip_attrs(click, remote_ip)
+      click.save!
+    end
   end
 
   private
 
-  def _assign_location_attrs(click, ip_address)
-    location_data = location_provider.get_location_data(ip_address)
+  def _assign_ip_attrs(click, remote_ip)
+    click.anonymized_ip = _anonymize(remote_ip)
+
+    location_data = location_provider.get_location_data(remote_ip)
     click.assign_attributes(location_data)
   end
 
@@ -32,7 +34,6 @@ class ClickRecorder
     click.host = env_data['HTTP_HOST']
     click.user_agent = env_data['HTTP_USER_AGENT']
     click.referer = env_data['HTTP_REFERER'].presence
-    click.anonymized_ip = _anonymize(env_data['REMOTE_ADDR'])
   end
 
   def _anonymize(ip)
