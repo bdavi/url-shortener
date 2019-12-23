@@ -3,24 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Links', type: :request do
-  describe 'GET #redirect' do
-    context 'when :slug param is an active link' do
-      it 'returns http success' do
-        link = create(:link)
-        get "/#{link.slug}"
-        expect(response).to redirect_to(link.url)
-      end
-    end
-
-    context 'when :slug segment key is not an active link' do
-      it 'returns raises a routing error' do
-        expect do
-          get '/invalid_slug'
-        end.to raise_error(ActionController::RoutingError)
-      end
-    end
-  end
-
   describe 'POST #create' do
     def create_params(url)
       {

@@ -12,6 +12,11 @@ jobs:
         ports: ["5432:5432"]
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
+      redis:
+        image: redis
+        ports:
+        - 6379:6379
+
     steps:
     - uses: actions/checkout@v1
 
@@ -33,6 +38,7 @@ jobs:
       env:
         PGHOST: localhost
         PGUSER: postgres
+        REDIS_URL: redis://localhost:6379
         RAILS_ENV: test
       run: |
         gem install bundler
@@ -57,3 +63,4 @@ jobs:
         yarn eslint -c ./.eslintrc.js ./app/javascript
         bundle exec erblint --config .erb-lint.yml --lint-all
         yarn stylelint app/javascript/css/**/*.css
+        bundle exec rubycritic

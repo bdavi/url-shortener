@@ -3,24 +3,24 @@
     {
       "warning_type": "Redirect",
       "warning_code": 18,
-      "fingerprint": "90d2cf95c80eebffc79ce387cd4bd7ef2cbc2dbedd24b43af673ad7df3a9c63f",
+      "fingerprint": "8214ebe755dad4cb8f6699ebb9e0a6ec7d7bbcf9a8cd2b2d8abe65c85e04a4f4",
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
-      "file": "app/controllers/links_controller.rb",
-      "line": 17,
+      "file": "app/controllers/redirects_controller.rb",
+      "line": 10,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(Link.find_by(:slug => params[:slug]).url)",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "LinksController",
-        "method": "redirect"
+        "class": "RedirectsController",
+        "method": "show"
       },
       "user_input": "Link.find_by(:slug => params[:slug]).url",
       "confidence": "High",
-      "note": "Link Redirect"
+      "note": ""
     }
   ],
-  "updated": "2019-12-13 17:08:49 -0700",
+  "updated": "2019-12-21 00:33:43 -0700",
   "brakeman_version": "4.7.2"
 }

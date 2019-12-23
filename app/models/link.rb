@@ -8,6 +8,10 @@ class Link < ApplicationRecord
 
   scope :most_recent, Links::MostRecentQuery
 
+  enum status: { pending: 0, approved: 1, failed_safety_check: 2 }
+
+  has_many :link_clicks, dependent: :restrict_with_error
+
   def short_url
     "#{ENV['DEFAULT_SHORT_LINK_HOST']}/#{slug}"
   end
@@ -21,6 +25,6 @@ class Link < ApplicationRecord
   end
 
   def self.slug_is_active?(slug)
-    exists?(slug: slug)
+    approved.exists?(slug: slug)
   end
 end

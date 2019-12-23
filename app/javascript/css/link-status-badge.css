@@ -1,0 +1,18 @@
+/* #########################################################################
+   Badge Styles For Link Statuses
+   ######################################################################### */
+.link-status-badge {
+  @apply border inline p-1 rounded;
+}
+
+.link-status-badge-pending {
+  @apply link-status-badge bg-orange-100 border-orange-400 text-orange-700;
+}
+
+.link-status-badge-approved {
+  @apply link-status-badge bg-green-100 border-green-400 text-green-700;
+}
+
+.link-status-badge-failed-safety-check {
+  @apply link-status-badge bg-red-100 border-red-400 text-red-700;
+}

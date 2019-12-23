@@ -11,11 +11,24 @@ RSpec.describe Link, type: :model do
 
   it { is_expected.to have_attribute :slug }
 
+  it { is_expected.to have_attribute :status }
+
+  it { is_expected.to have_many(:link_clicks).dependent(:restrict_with_error) }
+
   it { is_expected.to validate_presence_of :url }
 
   it { is_expected.to validate_presence_of :slug }
 
   it { is_expected.to validate_url_format_of :url }
+
+  it 'has the expected statuses' do
+    expected = { 'pending' => 0, 'approved' => 1, 'failed_safety_check' => 2 }
+    expect(described_class.statuses).to eq expected
+  end
+
+  it 'defaults status to `pending`' do
+    expect(described_class.new).to be_pending
+  end
 
   it 'validates uniqueness of #slug' do
     link = create(:link)
@@ -58,10 +71,19 @@ RSpec.describe Link, type: :model do
   end
 
   describe '.slug_is_active?' do
-    context 'when the slug has a link' do
+    context 'when the slug has an approved link' do
       it 'returns true' do
-        link = create(:link)
+        link = create(:link, :approved)
         expect(described_class.slug_is_active?(link.slug)).to be true
+      end
+    end
+
+    %i[pending failed_safety_check].each do |status|
+      context "when the slug has a #{status} link" do
+        it 'returns false' do
+          link = create(:link, status)
+          expect(described_class.slug_is_active?(link.slug)).to be false
+        end
       end
     end
 
