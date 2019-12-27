@@ -23,6 +23,7 @@ group :development, :test do
   gem 'erb_lint', git: 'https://github.com/shopify/erb-lint', require: false
   gem 'factory_bot_rails'
   gem 'fasterer'
+  gem 'rails_best_practices'
   gem 'rspec-rails', '~> 4.0.0.beta2'
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
