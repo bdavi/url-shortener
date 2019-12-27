@@ -1,5 +1,21 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: links
+#
+#  id         :bigint           not null, primary key
+#  slug       :string           not null
+#  status     :integer          default("pending")
+#  url        :text             not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_links_on_slug  (slug) UNIQUE
+#
+
 # Models a shortened link
 class Link < ApplicationRecord
   validates :url, presence: true, url: true
