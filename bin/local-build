@@ -37,7 +37,8 @@ commands = [
   Command.new(name: 'Eslint', cmd: 'yarn eslint -c ./.eslintrc.js ./app/javascript'),
   Command.new(name: 'ErbLint', cmd: 'bundle exec erblint --config .erb-lint.yml --lint-all'),
   Command.new(name: 'Stylelint', cmd: 'yarn stylelint app/javascript/css/**/*.css'),
-  Command.new(name: 'RubyCritic', cmd: 'bundle exec rubycritic')
+  Command.new(name: 'RubyCritic', cmd: 'bundle exec rubycritic'),
+  Command.new(name: 'Fasterer', cmd: 'bundle exec fasterer')
 ]
 
 puts commands.each(&:run)
