@@ -10,6 +10,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '>= 4.3.1'
 gem 'rails', '~> 6.0.1'
+gem 'rollbar'
 gem 'sidekiq'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'user_agent_parser'
