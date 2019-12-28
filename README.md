@@ -5,33 +5,18 @@
 - Node 13.2.0
 - Yarn 1.21.1
 - Heroku CLI
+- Bundler gem
 
 ## Initial Setup
 Run the following:
 ```
-> gem install bundler
-> bundle install
-> yarn install
-> bin/rails db:setup
+> bin/setup
 ```
 
-## Execute tests
+## Run the build
 Run the following:
 ```
-> bundle exec rspec
-> yarn test
-```
-
-## Lint and analyze code
-Run the following:
-```
-> bundle exec rubocop
-> bundle exec brakeman
-> bundle audit check --update
-> yarn eslint -c ./.eslintrc.js ./app/javascript
-> bundle exec erblint --config .erb-lint.yml --lint-all
-> yarn stylelint app/javascript/css/**/*.css
-> bundle exec rubycritic
+> bin/local-build
 ```
 
 ## Start Application
@@ -40,6 +25,6 @@ Run the following:
 > heroku local
 ```
 
-Application should be available at `localhost:5000`.
+Application is be available at `localhost:5000`.
 
-Sidekiq console should be available at `localhost:5000/sidekiq`.
+Sidekiq console is be available at `localhost:5000/sidekiq`.

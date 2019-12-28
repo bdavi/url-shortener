@@ -24,7 +24,7 @@ class Command
   end
 
   def to_s
-    "#{name.ljust(12)}: #{success? ? 'Success!' : 'FAIL'}"
+    "#{name.ljust(20)}: #{success? ? 'Success!' : 'FAIL'}"
   end
 end
 
@@ -37,7 +37,9 @@ commands = [
   Command.new(name: 'Eslint', cmd: 'yarn eslint -c ./.eslintrc.js ./app/javascript'),
   Command.new(name: 'ErbLint', cmd: 'bundle exec erblint --config .erb-lint.yml --lint-all'),
   Command.new(name: 'Stylelint', cmd: 'yarn stylelint app/javascript/css/**/*.css'),
-  Command.new(name: 'RubyCritic', cmd: 'bundle exec rubycritic')
+  Command.new(name: 'RubyCritic', cmd: 'bundle exec rubycritic'),
+  Command.new(name: 'Fasterer', cmd: 'bundle exec fasterer'),
+  Command.new(name: 'Rails Best Practices', cmd: 'bundle exec rails_best_practices .')
 ]
 
 puts commands.each(&:run)
