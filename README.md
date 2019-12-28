@@ -7,13 +7,13 @@
 - Heroku CLI
 - Bundler gem
 
-## Initial Setup
+## Setup
 Run the following:
 ```
 > bin/setup
 ```
 
-## Run the build
+## Build
 Run the following:
 ```
 > bin/local-build
@@ -25,6 +25,6 @@ Run the following:
 > heroku local
 ```
 
-Application is be available at `localhost:5000`.
+Application is available at `localhost:5000`.
 
-Sidekiq console is be available at `localhost:5000/sidekiq`.
+Sidekiq console is available at `localhost:5000/sidekiq`.
