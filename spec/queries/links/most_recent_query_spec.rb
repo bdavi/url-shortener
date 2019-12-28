@@ -15,7 +15,7 @@ RSpec.describe Links::MostRecentQuery, type: :query do
       query = described_class.call(limit: 2)
 
       expect(query).to be_a ActiveRecord::Relation
-      expect(query.to_a).to eql most_recent # eql because order matters
+      expect(query.to_a).to eq most_recent
     end
   end
 end
