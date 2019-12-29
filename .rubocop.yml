@@ -4,6 +4,16 @@ require:
   - rubocop-rake
   - rubocop-rspec
   - rubocop-thread_safety
+  - test_prof/rubocop
+
+RSpec/AggregateFailures:
+  Enabled: true
+  Include:
+    - 'spec/**/*.rb'
+
+RSpec/ImplicitSubject:
+  Exclude:
+    - 'spec/**/*.rb'
 
 Metrics/LineLength:
   Max: 100

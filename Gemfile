@@ -34,6 +34,8 @@ group :development, :test do
   gem 'rubocop-rspec', require: false
   gem 'rubocop-thread_safety', require: false
   gem 'rubycritic', require: false
+  gem 'stackprof', '>= 0.2.9', require: false
+  gem 'test-prof', require: false
   gem 'webmock', require: false
 end
 

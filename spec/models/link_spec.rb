@@ -7,19 +7,19 @@ RSpec.describe Link, type: :model do
     expect(build(:link)).to be_valid
   end
 
-  it { is_expected.to have_attribute :url }
+  it 'has the correct attributes', :aggregate_failures do
+    is_expected.to have_attribute :slug
+    is_expected.to have_attribute :status
+    is_expected.to have_attribute :url
+  end
 
-  it { is_expected.to have_attribute :slug }
-
-  it { is_expected.to have_attribute :status }
+  it 'has the correct validations', :aggregate_failures do
+    is_expected.to validate_presence_of :slug
+    is_expected.to validate_presence_of :url
+    is_expected.to validate_url_format_of :url
+  end
 
   it { is_expected.to have_many(:link_clicks).dependent(:restrict_with_error) }
-
-  it { is_expected.to validate_presence_of :url }
-
-  it { is_expected.to validate_presence_of :slug }
-
-  it { is_expected.to validate_url_format_of :url }
 
   it 'has the expected statuses' do
     expected = { 'pending' => 0, 'approved' => 1, 'failed_safety_check' => 2 }
