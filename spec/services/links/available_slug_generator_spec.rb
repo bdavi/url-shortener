@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Links::AvailableSlugGenerator do
+RSpec.describe Links::AvailableSlugGenerator, type: :service do
   describe '#generate_slug' do
     it 'returns a random value of the correct length' do
       length = 3

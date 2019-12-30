@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ApplicationQuery do
+RSpec.describe ApplicationQuery, type: :query do
   describe 'class methods' do
     subject { described_class }
 

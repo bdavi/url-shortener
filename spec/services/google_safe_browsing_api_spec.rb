@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe GoogleSafeBrowsingApi do
+RSpec.describe GoogleSafeBrowsingApi, type: :service do
   subject(:api) { described_class.new }
 
   let(:key) { '123' }

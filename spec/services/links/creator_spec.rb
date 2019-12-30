@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Links::Creator do
+RSpec.describe Links::Creator, type: :service do
   subject(:creator) { described_class.new }
 
   describe '#create' do

@@ -3,8 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe LinkClick, type: :model do
+  it 'has a valid factory' do
+    expect(build_stubbed(:link_click)).to be_valid
+  end
+
   # rubocop:disable RSpec/ExampleLength
-  it 'has the correct attributes', :aggregate_failures do
+  it 'has the correct attributes, validations and associations', :aggregate_failures do
     is_expected.to have_attribute :anonymized_ip
     is_expected.to have_attribute :city
     is_expected.to have_attribute :clicked_at
@@ -25,19 +29,13 @@ RSpec.describe LinkClick, type: :model do
     is_expected.to have_attribute :user_agent
     is_expected.to have_attribute :user_agent_family
     is_expected.to have_attribute :user_agent_version
-  end
-  # rubocop:enable RSpec/ExampleLength
 
-  it 'has the correct validations', :aggregate_failures do
     is_expected.to validate_presence_of :anonymized_ip
     is_expected.to validate_presence_of :clicked_at
     is_expected.to validate_presence_of :host
     is_expected.to validate_presence_of :user_agent
-  end
 
-  it { is_expected.to belong_to :link }
-
-  it 'has a valid factory' do
-    expect(build(:link_click)).to be_valid
+    is_expected.to belong_to :link
   end
+  # rubocop:enable RSpec/ExampleLength
 end

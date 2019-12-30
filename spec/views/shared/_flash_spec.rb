@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'rendering the flash' do
+describe 'rendering the flash', type: :view do
   let(:flash) do
     {
       'alert' => 'Check yourself before you wreck yourself',
