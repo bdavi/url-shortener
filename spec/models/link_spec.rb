@@ -4,22 +4,20 @@ require 'rails_helper'
 
 RSpec.describe Link, type: :model do
   it 'has a valid factory' do
-    expect(build(:link)).to be_valid
+    expect(build_stubbed(:link)).to be_valid
   end
 
-  it { is_expected.to have_attribute :url }
+  it 'has the correct attributes, validations and associations', :aggregate_failures do
+    is_expected.to have_attribute :slug
+    is_expected.to have_attribute :status
+    is_expected.to have_attribute :url
 
-  it { is_expected.to have_attribute :slug }
+    is_expected.to validate_presence_of :slug
+    is_expected.to validate_presence_of :url
+    is_expected.to validate_url_format_of :url
 
-  it { is_expected.to have_attribute :status }
-
-  it { is_expected.to have_many(:link_clicks).dependent(:restrict_with_error) }
-
-  it { is_expected.to validate_presence_of :url }
-
-  it { is_expected.to validate_presence_of :slug }
-
-  it { is_expected.to validate_url_format_of :url }
+    is_expected.to have_many(:link_clicks).dependent(:restrict_with_error)
+  end
 
   it 'has the expected statuses' do
     expected = { 'pending' => 0, 'approved' => 1, 'failed_safety_check' => 2 }
@@ -32,7 +30,7 @@ RSpec.describe Link, type: :model do
 
   it 'validates uniqueness of #slug' do
     link = create(:link)
-    duplicate = build(:link, slug: link.slug)
+    duplicate = build_stubbed(:link, slug: link.slug)
 
     duplicate.valid?
     expect(duplicate.errors[:slug]).to include 'has already been taken'
@@ -58,14 +56,14 @@ RSpec.describe Link, type: :model do
   describe '#short_url' do
     it 'joins the host and slug with a forward slash' do
       ENV['DEFAULT_SHORT_LINK_HOST'] = 'http://www.test.com'
-      link = build(:link, slug: 'abc')
+      link = build_stubbed(:link, slug: 'abc')
       expect(link.short_url).to eq 'http://www.test.com/abc'
     end
   end
 
   describe '#relative_short_url' do
     it 'concatenates a forward slash and the slug' do
-      link = build(:link, slug: 'abc')
+      link = build_stubbed(:link, slug: 'abc')
       expect(link.relative_short_url).to eq '/abc'
     end
   end

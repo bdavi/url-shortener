@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ActiveSlugConstraint, type: :helper do
+RSpec.describe ActiveSlugConstraint, type: :constraint do
   describe '#matches?' do
     subject(:constraint) { described_class.new }
 

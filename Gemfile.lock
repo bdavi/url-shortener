@@ -366,6 +366,8 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    stackprof (0.2.15)
+    test-prof (0.10.1)
     thor (0.20.3)
     thread_safe (0.3.6)
     tty-which (0.4.1)
@@ -437,6 +439,8 @@ DEPENDENCIES
   simplecov
   spring
   spring-watcher-listen (~> 2.0.0)
+  stackprof (>= 0.2.9)
+  test-prof
   tzinfo-data
   user_agent_parser
   web-console (>= 3.3.0)

@@ -11,8 +11,10 @@ RSpec.describe UnicodeIconHelper, type: :helper do
     let(:decimal_code) { 9888 }
     let(:char) { '⚠' }
 
-    it { is_expected.to respond_to :decimal_code }
-    it { is_expected.to respond_to :char }
+    it 'has the correct attributes', :aggregate_failures do
+      is_expected.to respond_to :char
+      is_expected.to respond_to :decimal_code
+    end
 
     describe '#to_html' do
       it 'returns the (html safe) html character code' do
