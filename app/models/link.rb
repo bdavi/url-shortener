@@ -29,7 +29,7 @@ class Link < ApplicationRecord
   has_many :link_clicks, dependent: :restrict_with_error
 
   def short_url
-    "#{ENV['DEFAULT_SHORT_LINK_HOST']}/#{slug}"
+    "#{ENV['APPLICATION_HOST']}/#{slug}"
   end
 
   def relative_short_url

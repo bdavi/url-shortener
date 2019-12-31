@@ -55,7 +55,7 @@ RSpec.describe Link, type: :model do
 
   describe '#short_url' do
     it 'joins the host and slug with a forward slash' do
-      ENV['DEFAULT_SHORT_LINK_HOST'] = 'http://www.test.com'
+      ENV['APPLICATION_HOST'] = 'http://www.test.com'
       link = build_stubbed(:link, slug: 'abc')
       expect(link.short_url).to eq 'http://www.test.com/abc'
     end
