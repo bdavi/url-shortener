@@ -3,6 +3,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  devise_for :users
   # Sidekiq Dashboard
   if Rails.env.production?
     Sidekiq::Web.use Rack::Auth::Basic do |username, password|

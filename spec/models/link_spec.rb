@@ -3,17 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe Link, type: :model do
-  it 'has a valid factory' do
-    expect(build_stubbed(:link)).to be_valid
-  end
+  it 'has the correct model basics', :aggregate_failures do
+    is_expected.to have_a_valid_default_factory
 
-  it 'has the correct attributes, validations and associations', :aggregate_failures do
     is_expected.to have_attribute :slug
     is_expected.to have_attribute :status
     is_expected.to have_attribute :url
 
     is_expected.to validate_presence_of :slug
     is_expected.to validate_presence_of :url
+    is_expected.to validate_the_uniqueness_of :slug
     is_expected.to validate_url_format_of :url
 
     is_expected.to have_many(:link_clicks).dependent(:restrict_with_error)
@@ -26,14 +25,6 @@ RSpec.describe Link, type: :model do
 
   it 'defaults status to `pending`' do
     expect(described_class.new).to be_pending
-  end
-
-  it 'validates uniqueness of #slug' do
-    link = create(:link)
-    duplicate = build_stubbed(:link, slug: link.slug)
-
-    duplicate.valid?
-    expect(duplicate.errors[:slug]).to include 'has already been taken'
   end
 
   describe '.slug_is_available?' do

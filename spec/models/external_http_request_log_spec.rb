@@ -3,11 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe ExternalHttpRequestLog, type: :model do
-  it 'has a valid factory' do
-    expect(build_stubbed(:external_http_request_log)).to be_valid
-  end
+  it 'has the correct model basics', :aggregate_failures do
+    is_expected.to have_a_valid_default_factory
 
-  it 'has the correct attributes and validations', :aggregate_failures do
     is_expected.to have_attribute :kind
     is_expected.to have_attribute :meta
     is_expected.to have_attribute :response_body
