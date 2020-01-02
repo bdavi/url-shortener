@@ -17,6 +17,7 @@
 #
 
 # Models a shortened link
+# NOTE: You will generally want use `Links::Creator` rather than `.create`.
 class Link < ApplicationRecord
   validates :url, presence: true, url: true
 

@@ -11,8 +11,13 @@ def system!(*args)
 end
 
 FileUtils.chdir APP_ROOT do
-  puts '== Installing dependencies =='
+  puts '== Setup .env =='
+  FileUtils.cp('.env-example', '.env') unless File.exist?('.env')
+
+  puts '== Installing Ruby dependencies =='
   system('bundle install')
+
+  puts "\n== Installing JS dependencies =="
   system('bin/yarn')
 
   puts "\n== Preparing database =="
@@ -23,4 +28,25 @@ FileUtils.chdir APP_ROOT do
 
   puts "\n== Restarting application server =="
   system! 'bin/rails restart'
+
+  puts "\n== Run Tests and Build =="
+  system! 'bin/local-build'
+
+  puts <<-NOTE
+
+
+    --------------------------------------------------------------------
+    - SUCCESS!                                                         -
+    -                                                                  -
+    - 1. Please consult the team for access to the secret .env values. -
+    -                                                                  -
+    - 2. The default user is confirmed and uses these credentials:     -
+    -      Email:    test@test.com                                     -
+    -      Password: testtest                                          -
+    -                                                                  -
+    - 3. Start application with: `heroku local`                        -
+    -                                                                  -
+    - 4. Application is available at: `localhost:5000`                 -
+    --------------------------------------------------------------------
+  NOTE
 end
