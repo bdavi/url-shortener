@@ -46,6 +46,14 @@ Style/Documentation:
     - 'db/**'
     - 'db/**/*'
 
+Layout/HashAlignment:
+  Exclude:
+    - 'app/views/**/*'
+
+Layout/ArgumentAlignment:
+  Exclude:
+    - 'app/views/**/*'
+
 AllCops:
   Exclude:
     - 'node_modules/**'

@@ -3,7 +3,6 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  devise_for :users
   # Sidekiq Dashboard
   if Rails.env.production?
     Sidekiq::Web.use Rack::Auth::Basic do |username, password|
@@ -11,6 +10,15 @@ Rails.application.routes.draw do
     end
   end
   mount Sidekiq::Web => '/sidekiq'
+
+  # Devise routes
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    passwords: 'users/passwords',
+    registrations: 'users/registrations',
+    confirmations: 'users/confirmations',
+    unlocks: 'users/unlocks'
+  }
 
   # Match a slug on the root route only if it has a corresponding Link.
   # Using the constraint causes invalid slugs to return 404 which is the
