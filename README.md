@@ -1,4 +1,4 @@
-## Requirements:
+## Requirements
 - Postgres 11
 - Redis 4.0.9
 - Ruby 2.6.3
@@ -19,7 +19,7 @@ Run the following:
 > bin/local-build
 ```
 
-## Start Application
+## Run
 Run the following:
 ```
 > heroku local

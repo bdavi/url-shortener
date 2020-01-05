@@ -3,6 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Link, type: :model do
+  # rubocop:disable RSpec/ExampleLength
   it 'has the correct model basics', :aggregate_failures do
     is_expected.to have_a_valid_default_factory
 
@@ -16,23 +17,20 @@ RSpec.describe Link, type: :model do
     is_expected.to validate_url_format_of :url
 
     is_expected.to have_many(:link_clicks).dependent(:restrict_with_error)
-  end
 
-  it 'has the expected statuses' do
-    expected = { 'pending' => 0, 'approved' => 1, 'failed_safety_check' => 2 }
-    expect(described_class.statuses).to eq expected
-  end
+    is_expected.to default(:status).to('pending')
 
-  it 'defaults status to `pending`' do
-    expect(described_class.new).to be_pending
+    is_expected.to delegate_scope(:most_recent).to(Links::MostRecentQuery)
+
+    is_expected.to have_enum(:status).with_values('pending', 'approved', 'failed_safety_check')
   end
+  # rubocop:enable RSpec/ExampleLength
 
   describe '.slug_is_available?' do
     context 'when a link has that slug' do
       it 'returns false' do
-        slug = 'abc'
-        create(:link, slug: slug)
-        expect(described_class.slug_is_available?(slug)).to be false
+        create(:link, slug: 'abc')
+        expect(described_class.slug_is_available?('abc')).to be false
       end
     end
 
@@ -81,11 +79,5 @@ RSpec.describe Link, type: :model do
         expect(described_class.slug_is_active?('not-a-slug')).to be false
       end
     end
-  end
-
-  describe '.scopes' do
-    subject { described_class }
-
-    it { is_expected.to delegate_scope(:most_recent).to(Links::MostRecentQuery) }
   end
 end

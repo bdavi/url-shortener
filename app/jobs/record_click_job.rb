@@ -6,8 +6,8 @@ class RecordClickJob < ApplicationJob
 
   discard_on ActiveJob::DeserializationError
 
-  def perform(link:, env_data:, clicked_at:, remote_ip:, recorder: ClickRecorder.new)
-    recorder.record_click(
+  def perform(link:, env_data:, clicked_at:, remote_ip:, creator: LinkClicks::Creator.new)
+    creator.create(
       link: link,
       env_data: env_data,
       clicked_at: clicked_at,
