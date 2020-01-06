@@ -1,0 +1,23 @@
+.btn {
+  @apply font-bold py-2 px-4 border rounded;
+}
+
+.btn-blue {
+  @apply bg-blue-500 text-white;
+}
+
+.btn-blue:hover {
+  @apply bg-blue-700;
+}
+
+.btn-sm {
+  @apply text-sm;
+}
+
+.btn-inverted-blue {
+  @apply text-white border-white;
+}
+
+.btn-inverted-blue:hover {
+  @apply border-transparent text-blue-500 bg-white;
+}

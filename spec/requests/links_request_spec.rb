@@ -12,13 +12,15 @@ RSpec.describe 'Links', type: :request do
       }
     end
 
+    before { sign_in create(:user) }
+
     context 'when params are valid' do
       it 'creates the link and redirects to dashboard#show' do
         expect do
           post links_path, params: create_params('http://www.abc.com')
         end.to change(Link, :count).by(1)
 
-        expect(response).to redirect_to(root_url)
+        expect(response).to redirect_to(dashboard_index_url)
       end
     end
 
@@ -28,7 +30,7 @@ RSpec.describe 'Links', type: :request do
           post links_path, params: create_params('invalid-url')
         end.not_to(change(Link, :count))
 
-        expect(response).to redirect_to(root_url)
+        expect(response).to redirect_to(dashboard_index_url)
       end
     end
   end

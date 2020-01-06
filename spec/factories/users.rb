@@ -7,5 +7,7 @@ FactoryBot.define do
     end
 
     password { 'Str0ngP@ssw0rdGoes<Here>!!!!!!!!!!!' }
+
+    confirmed_at { 10.days.ago }
   end
 end

@@ -6,6 +6,8 @@
 @import "./animation.css";
 @import "./flash.css";
 @import "./link-status-badge.css";
+@import "./button.css";
+@import "./navbar.css";
 
 /* Finish tailsind imports */
 @import "tailwindcss/components";

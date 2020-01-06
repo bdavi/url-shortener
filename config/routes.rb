@@ -26,5 +26,6 @@ Rails.application.routes.draw do
   get '/:slug', to: 'redirects#show', constraints: ActiveSlugConstraint.new
 
   resources :links, only: [:create]
-  root 'dashboard#show'
+  resources :dashboard, only: [:index]
+  root 'pages#home'
 end

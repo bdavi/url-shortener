@@ -2,12 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Dashboard', type: :request do
-  before { sign_in create(:user) }
-
+RSpec.describe 'Home', type: :request do
   describe 'GET #show' do
     it 'returns http success' do
-      get dashboard_index_url
+      get root_url
       expect(response).to have_http_status(:success)
     end
   end

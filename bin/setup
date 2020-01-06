@@ -15,10 +15,8 @@ FileUtils.chdir APP_ROOT do
   FileUtils.cp('.env-example', '.env') unless File.exist?('.env')
 
   puts '== Setup git remotes =='
-  system  'git remote remove staging'
-  system! 'git remote add staging https://git.heroku.com/short-lnk-staging.git'
-  system  'git remote remove production'
-  system! 'git remote add production https://git.heroku.com/short-lnk-production.git'
+  system 'git remote add staging https://git.heroku.com/short-lnk-staging.git'
+  system 'git remote add production https://git.heroku.com/short-lnk-production.git'
 
   puts '== Installing Ruby dependencies =='
   system 'bundle install'

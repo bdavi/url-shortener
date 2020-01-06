@@ -32,6 +32,10 @@ RSpec/DescribeClass:
     - 'spec/views/**'
     - 'spec/views/**/*'
 
+Layout/TrailingWhitespace:
+  Exclude:
+    - 'app/views/**/*'
+
 RSpec/MultipleExpectations:
   Max: 2
 

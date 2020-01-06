@@ -1,0 +1,7 @@
+<%=
+  if current_user
+    render 'shared/navbar/authenticated_navbar'
+  else
+    render 'shared/navbar/unauthenticated_navbar'
+  end
+%>
