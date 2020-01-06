@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 # Controller for Link related routes
-class LinksController < ApplicationController
+class LinksController < SecureController
   def create
     link = Links::Creator.new.create(link_params)
 
     if link.persisted?
-      redirect_to root_path, flash: { success: 'Link was successfully created.' }
+      redirect_to dashboard_index_path, flash: { success: 'Link was successfully created.' }
     else
-      redirect_to root_path, flash: { error: 'There was an error creating the link' }
+      redirect_to dashboard_index_path, flash: { error: 'There was an error creating the link' }
     end
   end
 

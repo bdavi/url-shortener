@@ -3,45 +3,34 @@
 require 'rails_helper'
 
 RSpec.describe Link, type: :model do
-  it 'has a valid factory' do
-    expect(build_stubbed(:link)).to be_valid
-  end
+  # rubocop:disable RSpec/ExampleLength
+  it 'has the correct model basics', :aggregate_failures do
+    is_expected.to have_a_valid_default_factory
 
-  it 'has the correct attributes, validations and associations', :aggregate_failures do
     is_expected.to have_attribute :slug
     is_expected.to have_attribute :status
     is_expected.to have_attribute :url
 
     is_expected.to validate_presence_of :slug
     is_expected.to validate_presence_of :url
+    is_expected.to validate_the_uniqueness_of :slug
     is_expected.to validate_url_format_of :url
 
     is_expected.to have_many(:link_clicks).dependent(:restrict_with_error)
-  end
 
-  it 'has the expected statuses' do
-    expected = { 'pending' => 0, 'approved' => 1, 'failed_safety_check' => 2 }
-    expect(described_class.statuses).to eq expected
-  end
+    is_expected.to default(:status).to('pending')
 
-  it 'defaults status to `pending`' do
-    expect(described_class.new).to be_pending
-  end
+    is_expected.to delegate_scope(:most_recent).to(Links::MostRecentQuery)
 
-  it 'validates uniqueness of #slug' do
-    link = create(:link)
-    duplicate = build_stubbed(:link, slug: link.slug)
-
-    duplicate.valid?
-    expect(duplicate.errors[:slug]).to include 'has already been taken'
+    is_expected.to have_enum(:status).with_values('pending', 'approved', 'failed_safety_check')
   end
+  # rubocop:enable RSpec/ExampleLength
 
   describe '.slug_is_available?' do
     context 'when a link has that slug' do
       it 'returns false' do
-        slug = 'abc'
-        create(:link, slug: slug)
-        expect(described_class.slug_is_available?(slug)).to be false
+        create(:link, slug: 'abc')
+        expect(described_class.slug_is_available?('abc')).to be false
       end
     end
 
@@ -55,7 +44,7 @@ RSpec.describe Link, type: :model do
 
   describe '#short_url' do
     it 'joins the host and slug with a forward slash' do
-      ENV['DEFAULT_SHORT_LINK_HOST'] = 'http://www.test.com'
+      ENV['APPLICATION_HOST'] = 'http://www.test.com'
       link = build_stubbed(:link, slug: 'abc')
       expect(link.short_url).to eq 'http://www.test.com/abc'
     end
@@ -90,11 +79,5 @@ RSpec.describe Link, type: :model do
         expect(described_class.slug_is_active?('not-a-slug')).to be false
       end
     end
-  end
-
-  describe '.scopes' do
-    subject { described_class }
-
-    it { is_expected.to delegate_scope(:most_recent).to(Links::MostRecentQuery) }
   end
 end

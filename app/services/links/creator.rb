@@ -4,6 +4,8 @@
 module Links
   # Centralizes link creation logic
   class Creator
+    attr_reader :slug_generator, :safety_checker
+
     delegate :generate_slug, to: :slug_generator
 
     def initialize(
@@ -15,18 +17,10 @@ module Links
     end
 
     def create(attrs)
-      link = Link.new(attrs)
-      link.slug ||= generate_slug
-
-      if link.save # rubocop:disable Style/IfUnlessModifier
-        safety_checker.perform_later(link)
+      Link.new(attrs).tap do |link|
+        link.slug ||= generate_slug
+        safety_checker.perform_later(link) if link.save
       end
-
-      link
     end
-
-    private
-
-    attr_reader :slug_generator, :safety_checker
   end
 end

@@ -32,6 +32,10 @@ RSpec/DescribeClass:
     - 'spec/views/**'
     - 'spec/views/**/*'
 
+Layout/TrailingWhitespace:
+  Exclude:
+    - 'app/views/**/*'
+
 RSpec/MultipleExpectations:
   Max: 2
 
@@ -45,6 +49,14 @@ Style/Documentation:
   Exclude:
     - 'db/**'
     - 'db/**/*'
+
+Layout/HashAlignment:
+  Exclude:
+    - 'app/views/**/*'
+
+Layout/ArgumentAlignment:
+  Exclude:
+    - 'app/views/**/*'
 
 AllCops:
   Exclude:

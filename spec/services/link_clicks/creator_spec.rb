@@ -3,15 +3,15 @@
 require 'rails_helper'
 
 # rubocop:disable RSpec/ExampleLength
-RSpec.describe ClickRecorder, type: :service do
-  subject(:recorder) do
+RSpec.describe LinkClicks::Creator, type: :service do
+  subject(:creator) do
     location_provider = instance_double('IpWhoIsApi', get_location_data: {})
     described_class.new(location_provider: location_provider)
   end
 
   let(:link) { create(:link) }
 
-  describe '#record_click' do
+  describe '#create' do
     it 'creates a LinkClick with the correct attributes' do
       clicked_at = DateTime.now
       agent = 'Mozilla/5.0 (iPad; CPU OS 10_2_1 like Mac OS X) AppleWebKit/600.1.4' \
@@ -33,9 +33,9 @@ RSpec.describe ClickRecorder, type: :service do
         'timezone_name' => 'Mountain Standard Time'
       }
       location_provider = instance_double('IpWhoIsApi', get_location_data: location_data)
-      recorder = described_class.new(location_provider: location_provider)
+      creator = described_class.new(location_provider: location_provider)
 
-      click = recorder.record_click(
+      click = creator.create(
         link: link,
         env_data: env_data,
         clicked_at: clicked_at,
@@ -77,7 +77,7 @@ RSpec.describe ClickRecorder, type: :service do
 
       remote_ip = '2001::3238:DFE1:63:0000:0000:FEFB'
 
-      click = recorder.record_click(
+      click = creator.create(
         link: link,
         env_data: env_data,
         clicked_at: DateTime.now,
@@ -96,7 +96,7 @@ RSpec.describe ClickRecorder, type: :service do
           'REMOTE_ADDR' => '2001::3238:DFE1:63:0000:0000:FEFB'
         }
 
-        click = recorder.record_click(
+        click = creator.create(
           link: link,
           env_data: env_data,
           clicked_at: DateTime.now,
@@ -115,7 +115,7 @@ RSpec.describe ClickRecorder, type: :service do
         }
 
         expect do
-          recorder.record_click(
+          creator.create(
             link: link,
             env_data: env_data,
             clicked_at: DateTime.now,

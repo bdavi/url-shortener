@@ -6,21 +6,21 @@ RSpec.describe RecordClickJob, type: :job do
   subject(:job) { described_class.new }
 
   # rubocop:disable RSpec/ExampleLength
-  it 'passes the link, env_data and clicked_at to recorder' do
-    recorder = instance_double('ClickRecorder')
+  it 'passes the link, env_data and clicked_at to creator' do
+    creator = instance_double('LinkClicks::Creator')
     link = instance_double('Link')
     env_data = {}
     clicked_at = DateTime.now
     remote_ip = '50.246.198.147'
 
-    expect(recorder).to receive(:record_click)
+    expect(creator).to receive(:create)
       .with(link: link, env_data: env_data, clicked_at: clicked_at, remote_ip: remote_ip)
 
     job.perform(
       link: link,
       env_data: env_data,
       clicked_at: clicked_at,
-      recorder: recorder,
+      creator: creator,
       remote_ip: remote_ip
     )
   end

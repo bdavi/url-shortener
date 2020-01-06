@@ -43,3 +43,6 @@ commands = [
 ]
 
 puts commands.each(&:run)
+
+all_succeeded = commands.map(&:success?).all?(true)
+exit(all_succeeded)

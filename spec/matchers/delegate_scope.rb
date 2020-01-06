@@ -7,11 +7,8 @@ module Matchers
   # Tests that an ActiveRecord scope is being delegated to a query class
   #
   # Example usage:
-  #
-  # describe 'scopes' do
-  #   subject { SomeActiveRecordClass }
   #   it { is_expected.to delegate_scope(:scope_name).to(QueryClass) }
-  # end
+  #
   def delegate_scope(attr)
     DelegateScopeMatcher.new(attr)
   end
@@ -57,15 +54,19 @@ module Matchers
 
     private
 
+    def _described_class(subject)
+      subject.class == Class ? subject : subject.class
+    end
+
     def _missing_query_msg
-      'Must supply query class with `.to` method'
+      'Must supply query class with `#to` method'
     end
 
     def _scope_calls_query_class?(subject)
       return false unless query_class
 
       allow(query_class).to receive(:call).and_return(:scope)
-      subject.public_send(scope_name) == :scope
+      _described_class(subject).public_send(scope_name) == :scope
     end
   end
 end

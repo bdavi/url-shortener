@@ -17,6 +17,7 @@
 #
 
 # Models a shortened link
+# NOTE: You will generally want use `Links::Creator` rather than `.create`.
 class Link < ApplicationRecord
   validates :url, presence: true, url: true
 
@@ -29,7 +30,7 @@ class Link < ApplicationRecord
   has_many :link_clicks, dependent: :restrict_with_error
 
   def short_url
-    "#{ENV['DEFAULT_SHORT_LINK_HOST']}/#{slug}"
+    "#{ENV['APPLICATION_HOST']}/#{slug}"
   end
 
   def relative_short_url

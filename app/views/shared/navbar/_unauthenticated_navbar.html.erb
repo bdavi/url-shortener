@@ -1,0 +1,11 @@
+<nav class="navbar">
+  <%=
+    link_to root_path do
+      render 'shared/navbar/navbar_logo'
+    end
+  %>
+
+  <div class="float-right">
+    <%= link_to 'Sign In', new_user_session_path, class: 'btn btn-inverted-blue' %>
+  </div>
+</nav>

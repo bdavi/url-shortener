@@ -11,9 +11,18 @@ def system!(*args)
 end
 
 FileUtils.chdir APP_ROOT do
-  puts '== Installing dependencies =='
-  system('bundle install')
-  system('bin/yarn')
+  puts '== Setup .env =='
+  FileUtils.cp('.env-example', '.env') unless File.exist?('.env')
+
+  puts '== Setup git remotes =='
+  system 'git remote add staging https://git.heroku.com/short-lnk-staging.git'
+  system 'git remote add production https://git.heroku.com/short-lnk-production.git'
+
+  puts '== Installing Ruby dependencies =='
+  system 'bundle install'
+
+  puts "\n== Installing JS dependencies =="
+  system 'bin/yarn'
 
   puts "\n== Preparing database =="
   system! 'bin/rails db:setup'
@@ -23,4 +32,28 @@ FileUtils.chdir APP_ROOT do
 
   puts "\n== Restarting application server =="
   system! 'bin/rails restart'
+
+  puts "\n== Run Tests and Build =="
+  system! 'bin/local-build'
+
+  puts <<-NOTE
+
+
+    --------------------------------------------------------------------
+    - SUCCESS!                                                         -
+    -                                                                  -
+    - 1. Please consult the team for access to the secret .env values. -
+    -                                                                  -
+    - 2. The default user is confirmed and uses these credentials:     -
+    -      Email:    test@test.com                                     -
+    -      Password: testtest                                          -
+    -                                                                  -
+    - 3. Start application locally with: `heroku local`.               -
+    -                                                                  -
+    - 4. Application is available at:                                  -
+    -      Development: localhost:5000                                 -
+    -      Staging    : https://short-lnk-staging.herokuapp.com        -
+    -      Production : https://short-lnk-production.herokuapp.com     -
+    --------------------------------------------------------------------
+  NOTE
 end

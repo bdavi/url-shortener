@@ -20,11 +20,12 @@ module UnicodeIconHelper
 
   # rubocop:disable Layout/HashAlignment
   UNICODE_ICONS = {
-    close:            UnicodeIcon.new(decimal_code: '215',    char: '×'),
-    warning_triangle: UnicodeIcon.new(decimal_code: '9888',   char: '⚠'),
-    info:             UnicodeIcon.new(decimal_code: '119998', char: '𝒾'),
-    exclamation:      UnicodeIcon.new(decimal_code: '33',     char: '!'),
-    check:            UnicodeIcon.new(decimal_code: '10003',  char: '✓')
+    close:               UnicodeIcon.new(decimal_code: '215',    char: '×'),
+    warning_triangle:    UnicodeIcon.new(decimal_code: '9888',   char: '⚠'),
+    info:                UnicodeIcon.new(decimal_code: '119998', char: '𝒾'),
+    exclamation:         UnicodeIcon.new(decimal_code: '33',     char: '!'),
+    check:               UnicodeIcon.new(decimal_code: '10003',  char: '✓'),
+    diagonal_rectangles: UnicodeIcon.new(decimal_code: '9630',   char: '▞')
   }.freeze
   # rubocop:enable Layout/HashAlignment
 

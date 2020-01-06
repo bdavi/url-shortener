@@ -81,6 +81,10 @@ RSpec.configure do |config|
       Bullet.end_request
     end
   end
+
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
 end
 
 Shoulda::Matchers.configure do |config|

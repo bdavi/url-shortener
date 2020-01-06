@@ -1,11 +1,5 @@
 <% page_title('Dashboard | URL Shortener') %>
 
-<div class="mb-6">
-  <h1>URLs are <span class="italic">TOO DAMN LONG!!!</span></h1>
-</div>
-
-<hr>
-
 <div class="my-6">
   <%= form_with(model: @dashboard.new_link, url: links_path) do |form| %>
     <div class="mb-3">

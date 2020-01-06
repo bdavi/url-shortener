@@ -78,6 +78,7 @@ GEM
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
+    bcrypt (3.1.13)
     better_html (1.0.14)
       actionview (>= 4.0)
       activesupport (>= 4.0)
@@ -121,6 +122,12 @@ GEM
     crass (1.0.5)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
+    devise (4.7.1)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0)
+      responders
+      warden (~> 1.2.3)
     diff-lcs (1.3)
     docile (1.3.2)
     dotenv (2.7.5)
@@ -216,6 +223,7 @@ GEM
     notiffany (0.1.3)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    orm_adapter (0.5.0)
     parallel (1.19.1)
     parser (2.6.5.0)
       ast (~> 2.4.0)
@@ -283,6 +291,9 @@ GEM
       rainbow (>= 2.0, < 4.0)
     regexp_parser (1.6.0)
     require_all (2.0.0)
+    responders (3.0.0)
+      actionpack (>= 5.0)
+      railties (>= 5.0)
     rollbar (2.23.1)
     rspec-core (3.9.0)
       rspec-support (~> 3.9.0)
@@ -381,6 +392,8 @@ GEM
       coercible (~> 1.0)
       descendants_tracker (~> 0.0, >= 0.0.3)
       equalizer (~> 0.0, >= 0.0.9)
+    warden (1.2.8)
+      rack (>= 2.0.6)
     web-console (4.0.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -412,6 +425,7 @@ DEPENDENCIES
   bundler-audit
   byebug
   capybara
+  devise
   dotenv-rails
   erb_lint!
   factory_bot_rails
