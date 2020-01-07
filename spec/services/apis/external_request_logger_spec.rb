@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ExternalRequestLogger, type: :service do
+RSpec.describe APIs::ExternalRequestLogger, type: :service do
   subject(:logger) { described_class.new }
 
   describe '#log' do

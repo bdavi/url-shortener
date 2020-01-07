@@ -57,12 +57,10 @@ module Matchers
     private
 
     def _valid?
-      if expected_values.any?
-        true
-      else
-        _failure_messages << 'Must supply expected values with `#with_values`'
-        false
-      end
+      return true if expected_values.any?
+
+      _failure_messages << 'Must supply expected values with `#with_values`'
+      false
     end
 
     def _run_responds_to_match

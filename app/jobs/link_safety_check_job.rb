@@ -6,7 +6,7 @@ class LinkSafetyCheckJob < ApplicationJob
 
   discard_on ActiveJob::DeserializationError
 
-  def perform(link, api: GoogleSafeBrowsingApi.new)
+  def perform(link, api: APIs::GoogleSafeBrowsingAPI.new)
     if api.url_is_safe?(link.url)
       link.approved!
     else

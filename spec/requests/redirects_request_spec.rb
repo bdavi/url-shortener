@@ -7,7 +7,9 @@ RSpec.describe 'Redirects', type: :request do
     context 'when :slug param is an active link' do
       it "redirects to the link's url" do
         link = create(:link)
+
         get "/#{link.slug}"
+
         expect(response).to redirect_to(link.url)
       end
 

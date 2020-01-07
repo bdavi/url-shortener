@@ -74,7 +74,6 @@ RSpec.describe LinkClicks::Creator, type: :service do
         'HTTP_USER_AGENT' => 'agent',
         'HTTP_REFERER' => 'referer'
       }
-
       remote_ip = '2001::3238:DFE1:63:0000:0000:FEFB'
 
       click = creator.create(

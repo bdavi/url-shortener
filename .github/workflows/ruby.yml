@@ -1,4 +1,4 @@
-name: Ruby
+name: Build
 
 on: [push]
 
@@ -22,47 +22,31 @@ jobs:
 
     - name: Set up Ruby 2.6
       uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.6.3
+      with: ruby-version: 2.6.3
 
     - name: Set up Node 13.2.0
       uses: actions/setup-node@v1
-      with:
-        node-version: 13.2.0
+      with: node-version: 13.2.0
 
     - name: Install PostgreSQL 11 client
-      run: |
-        sudo apt-get -yqq install libpq-dev
+      run: sudo apt-get -yqq install libpq-dev
 
-    - name: Build App
-      env:
+    - name: Set Environment Variables
+      uses: allenevans/set-env@v1.0.0
+      with:
         PGHOST: localhost
         PGUSER: postgres
         REDIS_URL: redis://localhost:6379
         RAILS_ENV: test
+
+    - name: Install Dependencies
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 3
         yarn install
-        bin/rails db:create db:migrate
 
-    - name: Run Tests
-      env:
-        PGHOST: localhost
-        PGUSER: postgres
-        RAILS_ENV: test
-      run: |
-        bundle exec rspec
-        yarn test
+    - name: Setup DB
+      run: bin/rails db:create db:migrate
 
-    - name: Run Linting & Analysis
-      run: |
-        bundle exec rubocop
-        bundle exec brakeman
-        bundle audit check --update
-        yarn eslint -c ./.eslintrc.js ./app/javascript
-        bundle exec erblint --config .erb-lint.yml --lint-all
-        yarn stylelint app/javascript/css/**/*.css
-        bundle exec rubycritic
-        bundle exec fasterer
-        bundle exec rails_best_practices .
+    - name: Test/Build App
+      run: bin/rake

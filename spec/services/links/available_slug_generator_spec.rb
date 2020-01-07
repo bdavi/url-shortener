@@ -7,6 +7,7 @@ RSpec.describe Links::AvailableSlugGenerator, type: :service do
     it 'returns a random value of the correct length' do
       length = 3
       generator = described_class.new(length: length)
+
       slug = generator.generate_slug
 
       expect(slug.length).to eq length

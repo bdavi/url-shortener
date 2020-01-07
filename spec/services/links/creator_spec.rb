@@ -8,6 +8,7 @@ RSpec.describe Links::Creator, type: :service do
   describe '#create' do
     it 'returns a link with the passed attribues' do
       url = 'http://www.google.com'
+
       link = creator.create(url: url)
 
       expect(link).to be_a Link
@@ -16,6 +17,7 @@ RSpec.describe Links::Creator, type: :service do
 
     it 'persists the link' do
       url = 'http://www.google.com'
+
       link = creator.create(url: url)
 
       expect(link).to be_persisted
@@ -53,6 +55,7 @@ RSpec.describe Links::Creator, type: :service do
         generator = instance_double('AvailableSlugGenerator', generate_slug: slug)
         creator = described_class.new(slug_generator: generator)
         url = 'http://www.google.com'
+
         link = creator.create(url: url)
 
         expect(link.slug).to eq slug
@@ -63,6 +66,7 @@ RSpec.describe Links::Creator, type: :service do
       it 'sets that value on the link' do
         slug = 'abc'
         url = 'http://www.google.com'
+
         link = creator.create(url: url, slug: slug)
 
         expect(link.slug).to eq slug

@@ -6,58 +6,6 @@ require:
   - rubocop-thread_safety
   - test_prof/rubocop
 
-RSpec/AggregateFailures:
-  Enabled: true
-  Include:
-    - 'spec/**/*.rb'
-
-RSpec/ImplicitSubject:
-  Exclude:
-    - 'spec/**/*.rb'
-
-Metrics/LineLength:
-  Max: 100
-  Exclude:
-    - 'config/**'
-    - 'config/**/*'
-
-Metrics/BlockLength:
-  Exclude:
-    - 'spec/**'
-    - 'spec/**/*'
-
-RSpec/DescribeClass:
-  Exclude:
-    - 'spec/requests/**'
-    - 'spec/views/**'
-    - 'spec/views/**/*'
-
-Layout/TrailingWhitespace:
-  Exclude:
-    - 'app/views/**/*'
-
-RSpec/MultipleExpectations:
-  Max: 2
-
-RSpec/MessageSpies:
-  EnforcedStyle: receive
-
-RSpec/ExampleLength:
-  Max: 10
-
-Style/Documentation:
-  Exclude:
-    - 'db/**'
-    - 'db/**/*'
-
-Layout/HashAlignment:
-  Exclude:
-    - 'app/views/**/*'
-
-Layout/ArgumentAlignment:
-  Exclude:
-    - 'app/views/**/*'
-
 AllCops:
   Exclude:
     - 'node_modules/**'
@@ -65,5 +13,62 @@ AllCops:
     - 'spec/rails_helper.rb'
     - 'spec/spec_helper.rb'
     - 'Guardfile'
+    - 'db/**'
+    - 'db/**/*'
+
+Layout/ArgumentAlignment:
+  Exclude:
+    - 'app/views/**/*'
+
+Layout/HashAlignment:
+  Exclude:
+    - 'app/views/**/*'
+
+Layout/TrailingWhitespace:
+  Exclude:
+    - 'app/views/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**'
+    - 'spec/**/*'
+
+Metrics/LineLength:
+  Max: 100
+  Exclude:
+    - 'config/**'
+    - 'config/**/*'
+
+RSpec/AggregateFailures:
+  Enabled: true
+  Include:
+    - 'spec/**/*.rb'
+
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/requests/**'
+    - 'spec/views/**'
+    - 'spec/views/**/*'
+
+RSpec/ExampleLength:
+  Max: 10
+
+RSpec/FilePath:
+  CustomTransform:
+    API: api
+    APIs: apis
+
+RSpec/ImplicitSubject:
+  Exclude:
+    - 'spec/**/*.rb'
+
+RSpec/MessageSpies:
+  EnforcedStyle: receive
+
+RSpec/MultipleExpectations:
+  Max: 2
+
+Style/Documentation:
+  Exclude:
     - 'db/**'
     - 'db/**/*'

@@ -29,14 +29,16 @@ RSpec.describe Link, type: :model do
   describe '.slug_is_available?' do
     context 'when a link has that slug' do
       it 'returns false' do
-        create(:link, slug: 'abc')
-        expect(described_class.slug_is_available?('abc')).to be false
+        create(:link, slug: 'abc123')
+
+        expect(described_class.slug_is_available?('abc123')).to be false
       end
     end
 
     context 'when no link has that slug' do
       it 'returns true' do
-        slug = 'abc'
+        slug = 'abc123'
+
         expect(described_class.slug_is_available?(slug)).to be true
       end
     end
@@ -46,6 +48,7 @@ RSpec.describe Link, type: :model do
     it 'joins the host and slug with a forward slash' do
       ENV['APPLICATION_HOST'] = 'http://www.test.com'
       link = build_stubbed(:link, slug: 'abc')
+
       expect(link.short_url).to eq 'http://www.test.com/abc'
     end
   end
@@ -53,6 +56,7 @@ RSpec.describe Link, type: :model do
   describe '#relative_short_url' do
     it 'concatenates a forward slash and the slug' do
       link = build_stubbed(:link, slug: 'abc')
+
       expect(link.relative_short_url).to eq '/abc'
     end
   end
@@ -61,6 +65,7 @@ RSpec.describe Link, type: :model do
     context 'when the slug has an approved link' do
       it 'returns true' do
         link = create(:link, :approved)
+
         expect(described_class.slug_is_active?(link.slug)).to be true
       end
     end
@@ -69,6 +74,7 @@ RSpec.describe Link, type: :model do
       context "when the slug has a #{status} link" do
         it 'returns false' do
           link = create(:link, status)
+
           expect(described_class.slug_is_active?(link.slug)).to be false
         end
       end

@@ -9,7 +9,7 @@ RSpec.describe LinkSafetyCheckJob, type: :job do
     context 'when the check passes' do
       it 'sets the link status to approved' do
         link = build(:link, :pending)
-        api = instance_double('GoogleSafeBrowsingApi', url_is_safe?: true)
+        api = instance_double('APIs::GoogleSafeBrowsingApi', url_is_safe?: true)
 
         job.perform(link, api: api)
 
@@ -20,7 +20,7 @@ RSpec.describe LinkSafetyCheckJob, type: :job do
     context 'when the check fails' do
       it 'sets the link status to failed_safety_check' do
         link = build(:link, :pending)
-        api = instance_double('GoogleSafeBrowsingApi', url_is_safe?: false)
+        api = instance_double('APIs::GoogleSafeBrowsingApi', url_is_safe?: false)
 
         job.perform(link, api: api)
 

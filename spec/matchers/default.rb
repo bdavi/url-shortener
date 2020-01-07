@@ -23,7 +23,8 @@ module Matchers
 
     def matches?(subject)
       @subject = subject
-      subject.class.new.send(attribute) == default_value
+
+      default_value && _actual_value == default_value
     end
 
     def does_not_match?(subject)
@@ -40,15 +41,12 @@ module Matchers
     end
 
     def failure_message
-      return _missing_default_value_message unless default_value
-
-      "expected #{attribute} to equal #{default_value} but was #{_actual_value}"
+      _missing_default_value_message ||
+        "expected #{attribute} to equal #{default_value} but was #{_actual_value}"
     end
 
     def failure_message_when_negated
-      return _missing_default_value_message unless default_value
-
-      "expected #{attribute} to not equal #{default_value}"
+      _missing_default_value_message || "expected #{attribute} to not equal #{default_value}"
     end
 
     private
@@ -60,10 +58,12 @@ module Matchers
     end
 
     def _actual_value
-      _new_instance.send(attribute)
+      _new_instance.public_send(attribute)
     end
 
     def _missing_default_value_message
+      return nil if default_value
+
       'Must supply expected default value with `#to` method'
     end
   end

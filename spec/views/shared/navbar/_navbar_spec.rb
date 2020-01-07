@@ -6,7 +6,9 @@ describe 'shared/navbar/_navbar', type: :view do
   context 'when there is no current_user' do
     it 'renders shared/navbar/unauthenticated_navbar' do
       stub_template 'shared/navbar/_unauthenticated_navbar.html.erb' => 'abc123'
+
       render
+
       expect(rendered).to match(/abc123/)
     end
   end
@@ -15,7 +17,9 @@ describe 'shared/navbar/_navbar', type: :view do
     it 'renders shared/navbar/unauthenticated_navbar' do
       allow(view).to receive(:current_user).and_return(instance_double('User'))
       stub_template 'shared/navbar/_authenticated_navbar.html.erb' => 'abc123'
+
       render
+
       expect(rendered).to match(/abc123/)
     end
   end

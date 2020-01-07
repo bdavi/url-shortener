@@ -17,21 +17,25 @@ describe 'rendering the flash', type: :view do
 
   it 'shows the displayable messages' do
     render_flash
+
     expect(rendered).to match(/Check yourself/)
   end
 
   it 'renders the correct flash class' do
     render_flash
+
     expect(rendered).to match(/flash-alert/)
   end
 
   it 'does not show non-displayable flash keys' do
     render_flash
+
     expect(rendered).not_to match(/should_not_be_rendered/)
   end
 
   it 'renders two messages when the key is an array' do
     render_flash
+
     expect(rendered).to match(/You should/)
     expect(rendered).to match(/and this/)
   end

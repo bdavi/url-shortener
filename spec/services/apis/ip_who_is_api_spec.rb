@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe IpWhoIsApi, type: :service do
+RSpec.describe APIs::IpWhoIsAPI, type: :service do
   subject(:api) { described_class.new }
 
   describe '#lookup_ip_address(ip_address)' do

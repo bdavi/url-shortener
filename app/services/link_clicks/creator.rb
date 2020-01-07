@@ -8,7 +8,7 @@ module LinkClicks
 
     def initialize(
       user_agent_parser: UserAgentParser,
-      location_provider: IpWhoIsApi.new
+      location_provider: APIs::IpWhoIsAPI.new
     )
       @user_agent_parser = user_agent_parser
       @location_provider = location_provider

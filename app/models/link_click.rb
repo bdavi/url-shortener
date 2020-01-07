@@ -39,6 +39,7 @@
 #
 
 # Models a click on a shortened Link
+# NOTE: You will generally want use `LinkClicks::Creator` rather than `.create`.
 class LinkClick < ApplicationRecord
   validates :host, presence: true
 
