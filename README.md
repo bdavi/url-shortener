@@ -16,7 +16,7 @@ Run the following:
 ## Build
 Run the following:
 ```
-> bin/local-build
+> bin/build
 ```
 
 ## Run
