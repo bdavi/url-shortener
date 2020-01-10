@@ -16,7 +16,7 @@ Run the following:
 ## Build
 Run the following:
 ```
-> bin/rake build
+> bin/build
 ```
 
 ## Run
