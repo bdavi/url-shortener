@@ -7,9 +7,9 @@ RSpec.describe Link, type: :model do
   it 'has the correct model basics', :aggregate_failures do
     is_expected.to have_a_valid_default_factory
 
-    is_expected.to have_attribute :slug
-    is_expected.to have_attribute :status
-    is_expected.to have_attribute :url
+    is_expected.to have_db_column :slug
+    is_expected.to have_db_column :status
+    is_expected.to have_db_column :url
 
     is_expected.to validate_presence_of :slug
     is_expected.to validate_presence_of :url

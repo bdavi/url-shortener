@@ -7,7 +7,7 @@ RSpec.describe DashboardPresenter, type: :presenter do
 
   describe '#recent_links' do
     it 'returns the most recent links' do
-      recent_links = instance_double('Link')
+      recent_links = [instance_double('Link')]
       allow(Link).to receive(:most_recent).and_return(recent_links)
 
       expect(dashboard_presenter.recent_links).to eq recent_links

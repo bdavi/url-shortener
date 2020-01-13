@@ -28,7 +28,7 @@ RSpec.describe 'Links', type: :request do
       it 'does not create a link and redirects to dashboard#index' do
         expect do
           post links_path, params: create_params('invalid-url')
-        end.not_to(change(Link, :count))
+        end.not_to change(Link, :count)
 
         expect(response).to redirect_to(dashboard_index_url)
       end
