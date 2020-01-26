@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Link, type: :model do
   # rubocop:disable RSpec/ExampleLength
-  it 'has the correct model basics', :aggregate_failures do
+  it :aggregate_failures do
     is_expected.to have_a_valid_default_factory
 
     is_expected.to have_db_column :slug

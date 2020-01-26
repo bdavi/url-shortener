@@ -10,7 +10,7 @@ module FlashHelper
   }.freeze
 
   def displayable_flash_types
-    %w[error notice alert success].freeze
+    FLASH_TYPE_ICON_MAP.keys
   end
 
   def flash_icon(type)

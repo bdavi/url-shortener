@@ -6,7 +6,7 @@ RSpec.describe RecordClickJob, type: :job do
   subject(:job) { described_class.new }
 
   # rubocop:disable RSpec/ExampleLength
-  it 'passes the link, env_data and clicked_at to creator' do
+  it 'passes the needed data to the creator' do
     creator = instance_double('LinkClicks::Creator')
     link = instance_double('Link')
     env_data = {}
