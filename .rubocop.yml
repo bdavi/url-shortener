@@ -33,13 +33,13 @@ Metrics/BlockLength:
     - 'spec/**'
     - 'spec/**/*'
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 100
   Exclude:
     - 'config/**'
     - 'config/**/*'
 
-RSpec/AggregateFailures:
+RSpec/AggregateExamples:
   Enabled: true
   Include:
     - 'spec/**/*.rb'
