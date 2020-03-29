@@ -394,7 +394,7 @@ GEM
       thread_safe (~> 0.1)
     unicode-display_width (1.6.0)
     uniform_notifier (1.13.0)
-    user_agent_parser (2.5.2)
+    user_agent_parser (2.6.0)
     virtus (1.0.5)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
