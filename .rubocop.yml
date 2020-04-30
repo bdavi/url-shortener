@@ -16,6 +16,27 @@ AllCops:
     - 'db/**'
     - 'db/**/*'
 
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Style/ExponentialNotation:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
 Layout/ArgumentAlignment:
   Exclude:
     - 'app/views/**/*'
