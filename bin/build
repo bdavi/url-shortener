@@ -17,5 +17,6 @@ system! 'yarn stylelint app/javascript/css/**/*.css'
 system! 'bundle exec rubycritic'
 system! 'bundle exec fasterer'
 system! 'bundle exec rails_best_practices .'
+system! 'yarn audit'
 
 puts "\nSUCCESS!!!!!!!!!"
