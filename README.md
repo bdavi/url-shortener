@@ -1,11 +1,10 @@
 ## Requirements
-- Postgres 11
-- Redis 4.0.9
-- Ruby 2.6.3
-- Node 13.2.0
-- Yarn 1.21.1
+- Postgres 12
+- Redis 5
+- Ruby 2.7
+- Node 14
+- Yarn 1.22
 - Heroku CLI
-- Bundler gem
 
 ## Setup
 Run the following:

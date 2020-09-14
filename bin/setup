@@ -34,7 +34,7 @@ FileUtils.chdir APP_ROOT do
   system! 'bin/rails restart'
 
   puts "\n== Run Tests and Build =="
-  system! 'bin/local-build'
+  system! 'bin/build'
 
   puts <<-NOTE
 
