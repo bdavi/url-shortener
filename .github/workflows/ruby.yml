@@ -20,15 +20,15 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: Set up Ruby 2.7
+    - name: Set up Ruby
       uses: actions/setup-ruby@v1
       with:
         ruby-version: 2.7.1
 
-    - name: Set up Node 13.2.0
+    - name: Set up Node
       uses: actions/setup-node@v1
       with:
-        node-version: 13.2.0
+        node-version: 14.10.1
 
     - name: Install PostgreSQL 11 client
       run: sudo apt-get -yqq install libpq-dev
