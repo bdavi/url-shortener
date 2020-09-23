@@ -14,46 +14,45 @@ module LinkClicks
       @location_provider = location_provider
     end
 
-    def create(link:, env_data:, clicked_at:, remote_ip:)
-      LinkClick.new(link: link, clicked_at: clicked_at).tap do |click|
-        _assign_env_attrs(click, env_data)
-        _assign_parsed_user_agent_attrs(click)
-        _assign_ip_attrs(click, remote_ip)
-        click.save!
-      end
+    def create(link:, request_data:)
+      LinkClick.create!(
+        link: link,
+        **_request_data_attrs(request_data),
+        **_ip_attrs(request_data[:remote_ip]),
+        **_user_agent_attrs(request_data[:user_agent])
+      )
     end
 
     private
 
-    def _assign_ip_attrs(click, remote_ip)
-      click.anonymized_ip = _anonymize(remote_ip)
-
-      location_data = location_provider.get_location_data(remote_ip)
-      click.assign_attributes(location_data)
+    def _request_data_attrs(request_data)
+      attr_names = LinkClick.attribute_names.map(&:to_sym)
+      request_data.slice(*attr_names)
     end
 
-    def _assign_env_attrs(click, env_data)
-      click.host = env_data['HTTP_HOST']
-      click.user_agent = env_data['HTTP_USER_AGENT']
-      click.referer = env_data['HTTP_REFERER'].presence
+    def _ip_attrs(remote_ip)
+      {
+        anonymized_ip: _anonymize(remote_ip),
+        **location_provider.get_location_data(remote_ip)
+      }
     end
 
     def _anonymize(ip)
       ip&.sub(/\w*\z/, 'X')
     end
 
-    # rubocop:disable Metrics/AbcSize
-    def _assign_parsed_user_agent_attrs(click)
-      agent = user_agent_parser.parse(click.user_agent)
+    def _user_agent_attrs(user_agent)
+      parsed_agent = user_agent_parser.parse(user_agent)
 
-      click.device_family = agent.device.family
-      click.device_model = agent.device.model
-      click.device_brand = agent.device.brand
-      click.os_family = agent.os.family
-      click.os_version = agent.os.version
-      click.user_agent_family = agent.family
-      click.user_agent_version = agent.version
+      {
+        device_family: parsed_agent.device.family,
+        device_model: parsed_agent.device.model,
+        device_brand: parsed_agent.device.brand,
+        os_family: parsed_agent.os.family,
+        os_version: parsed_agent.os.version,
+        user_agent_family: parsed_agent.family,
+        user_agent_version: parsed_agent.version
+      }
     end
-    # rubocop:enable Metrics/AbcSize
   end
 end
