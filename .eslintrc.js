@@ -6,7 +6,9 @@ module.exports = {
   },
   extends: [
     'airbnb-base',
-    'plugin:jest/recommended'
+    'plugin:jest/recommended',
+    'prettier',
+    'prettier/standard',
   ],
   globals: {
     Atomics: 'readonly',
@@ -18,7 +20,7 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: [
-    'jest'
+    'jest',
   ],
   rules: {
     'jest/no-disabled-tests': 'warn',
