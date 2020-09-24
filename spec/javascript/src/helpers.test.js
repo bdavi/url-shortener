@@ -1,12 +1,12 @@
-import { addStylesToElement } from '../../../app/javascript/src/helpers.js'
+import { addStylesToElement } from '../../../app/javascript/src/helpers';
 
 describe('addStylesToElement', () => {
   it('adds the properties in styles to the element.style object', () => {
     const styles = { display: 'none' };
     const element = {
       style: {
-        textAlign: 'center'
-      }
+        textAlign: 'center',
+      },
     };
 
     addStylesToElement(styles, element);

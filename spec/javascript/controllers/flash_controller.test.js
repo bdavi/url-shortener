@@ -1,8 +1,8 @@
 import { Application } from 'stimulus';
-import FlashController from '../../../app/javascript/controllers/flash_controller.js';
+import FlashController from '../../../app/javascript/controllers/flash_controller';
 
-describe("FlashController", () => {
-  describe("#dismiss", () => {
+describe('FlashController', () => {
+  describe('#dismiss', () => {
     beforeEach(() => {
       document.body.innerHTML = `
         <div data-controller="flash" data-target="flash.dismiss">
@@ -11,7 +11,7 @@ describe("FlashController", () => {
       `;
 
       const application = Application.start();
-      application.register("flash", FlashController);
+      application.register('flash', FlashController);
     });
 
     it('sets flash animation-name to "fadeout"', () => {
